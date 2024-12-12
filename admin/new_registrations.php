@@ -1,5 +1,7 @@
 <?php
 include "../process/conn.php";
+
+
 ?>
 
 <!DOCTYPE html>
@@ -139,7 +141,7 @@ include "../process/conn.php";
                             <tbody>
                                 <!-- display data here -->
                                 <?php
-                                $all_reg = mysqli_query($conn, "SELECT * FROM registration");
+                                $all_reg = mysqli_query($conn, "SELECT * FROM registration ORDER BY id DESC");
                                 while ($row = mysqli_fetch_assoc($all_reg)) {
                                     // echo $row['name'];
                                     echo "
@@ -156,7 +158,7 @@ include "../process/conn.php";
                                             <td>{$row['email']}</td>
                                             <td>{$row['phone']}</td>
                                             <td></td>
-                                            <td><span class='status-badge pending'>Pending</span></td>
+                                            <td><span class='status-badge {$row['status']}'>{$row['status']}</span></td>
                                         </tr>";
 
                                     echo "
@@ -177,9 +179,13 @@ include "../process/conn.php";
                                                         <span>{$row['phone']}</span>
                                                     </div>
 
+                                                    <form action='./process/assign_role.php' method='post'>
+
+                                                    <input type='hidden' name='id' value='{$row['id']}'>
+
                                                     <div class='detail-item'>
                                                         <label>Assigned To:</label>
-                                                        <select name='assigned_to' id='assigned_to'>
+                                                        <select name='assigned_to' id='assigned_to' required>
                                                             <option selected disabled>Select role</option>
                                                             <option value='retailer'>Retailer</option>
                                                             <option value='user'>User</option>
@@ -189,23 +195,28 @@ include "../process/conn.php";
 
                                                     <div class='detail-item retailer-select' style='display: none;'>
                                                         <label>Retailer:</label>
-                                                        <select name='retailer' id='retailer'>";
+                                                        <select name='retailer' id='retailer' required>
+                                                        <option selected disabled>Select retailer</option>";
 
                                     // <option value='1'>Retailer 1</option>
                                     // <option value='2'>Retailer 2</option>
                                     // <option value='3'>Retailer 3</option>
 
-                                    $query = "SELECT retailer_id, retailer_name FROM retailer";
-                                    $result = mysqli_query($conn, $query);
+                                                    $query = "SELECT retailer_id, retailer_name FROM retailer";
+                                                    $result = mysqli_query($conn, $query);
 
-                                    while ($row1 = mysqli_fetch_assoc($result)) {
-                                        echo "<option value='" . $row1['retailer_id'] . "'>" . htmlspecialchars($row1['retailer_name']) . "</option>";
-                                    }
+                                                    while ($row1 = mysqli_fetch_assoc($result)) {
+                                                        echo "<option value='" . $row1['retailer_id'] . "'>" . htmlspecialchars($row1['retailer_name']) . "</option>";
+                                                    }
 
 
-                                    echo " </select>
+                                                    echo " </select>
                                                     </div>
-                                               
+
+                                                    <div class='detail-item'>
+                                                        <button type='submit' name='assign_role'>Assign Role</button>
+                                                    </div>
+                                               </form>
 
                                                 </div>
                                             </div>
@@ -222,8 +233,8 @@ include "../process/conn.php";
         </div>
     </div>
 
+    <script src="./../template/template.js"></script>
     <script src="./assets/js/new_reg.js"></script>
-    <script src="../template/template.js"></script>
 </body>
 
 </html>
