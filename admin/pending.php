@@ -10,7 +10,7 @@ include "../process/conn.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Registrations</title>
+    <title>Pending Users</title>
 
     <!-- Add Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -21,86 +21,9 @@ include "../process/conn.php";
 <body>
     <div class="wrapper">
         <!-- Sidebar -->
-        <nav class="sidebar">
-            <!-- <div class="sidebar-toggle">
-                <i class="fas fa-chevron-left"></i>
-            </div>
-            <div class="sidebar-header">
-                <i class="fas fa-wallet"></i>
-                <span class="sidebar-text">Wallet</span>
-            </div> -->
-
-            <div class="sidebar-header">
-                <div class="header-content">
-                    <i class="fas fa-bars sidebar-toggle"></i>
-                    <span class="sidebar-text">Wallet</span>
-                </div>
-                <!-- Mobile close button -->
-                <button class="mobile-close">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-
-            <ul class="sidebar-menu">
-                <li class="active">
-                    <a href="#" class="menu-item">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span class="sidebar-text">Pending Users List</span>
-                        <i class="fas fa-chevron-down submenu-arrow"></i>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="#"><span class="sidebar-text">Add Users</span></a></li>
-                        <li><a href="#"><span class="sidebar-text">Pending Users List</span></a></li>
-                        <li><a href="#"><span class="sidebar-text">All Customers List</span></a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" class="menu-item">
-                        <i class="fas fa-sync"></i>
-                        <span class="sidebar-text">Refill Orders</span>
-                        <i class="fas fa-chevron-down submenu-arrow"></i>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="#"><span class="sidebar-text">Pending Orders</span></a></li>
-                        <li><a href="#"><span class="sidebar-text">Completed Orders</span></a></li>
-                        <li><a href="#"><span class="sidebar-text">Failed Orders</span></a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" class="menu-item">
-                        <i class="fas fa-money-bill"></i>
-                        <span class="sidebar-text">Payment Requests</span>
-                        <i class="fas fa-chevron-down submenu-arrow"></i>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="#"><span class="sidebar-text">New Requests</span></a></li>
-                        <li><a href="#"><span class="sidebar-text">Processed</span></a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" class="menu-item">
-                        <i class="fas fa-credit-card"></i>
-                        <span class="sidebar-text">Payout Orders</span>
-                        <i class="fas fa-chevron-down submenu-arrow"></i>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="#"><span class="sidebar-text">Pending Payouts</span></a></li>
-                        <li><a href="#"><span class="sidebar-text">Completed Payouts</span></a></li>
-                        <li><a href="#"><span class="sidebar-text">Rejected Payouts</span></a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" class="menu-item">
-                        <i class="fas fa-balance-scale"></i>
-                        <span class="sidebar-text">Balance</span>
-                    </a>
-                </li>
-            </ul>
-
-            <!-- <div class="sidebar-toggle">
-                <i class="fas fa-chevron-left"></i>
-            </div> -->
-        </nav>
+        <?php
+            include 'sidebar.php';
+        ?>
 
         <div class="content-wrapper">
             <!-- New Header Section -->
@@ -275,6 +198,8 @@ include "../process/conn.php";
                         </table>
                     </div>
                 </div>
+
+                
             </div>
         </div>
     </div>
