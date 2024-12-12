@@ -27,7 +27,7 @@ if(mysqli_num_rows($result) > 0) {
 }
 
 if(isset($_POST['register'])){
-    $sql = "INSERT INTO registration (full_name, email, phone, created_at) VALUES ('$name', '$email', '$phone', '$created_at')";
+    $sql = "INSERT INTO registration (full_name, email, phone, created_at, status) VALUES ('$name', '$email', '$phone', '$created_at', 'Pending')";
     if(mysqli_query($conn, $sql)){
         echo "<script>alert('Registration successful');</script>";
         echo "<script>window.location.href = '../registration.php';</script>";

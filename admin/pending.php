@@ -14,7 +14,7 @@ include "../process/conn.php";
 
     <!-- Add Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./assets/css/new_reg.css">
+    <link rel="stylesheet" href="./assets/css/pending.css">
 
 </head>
 
@@ -45,8 +45,14 @@ include "../process/conn.php";
                 <li class="active">
                     <a href="#" class="menu-item">
                         <i class="fas fa-tachometer-alt"></i>
-                        <span class="sidebar-text">New Registrations</span>
+                        <span class="sidebar-text">Pending Users List</span>
+                        <i class="fas fa-chevron-down submenu-arrow"></i>
                     </a>
+                    <ul class="submenu">
+                        <li><a href="#"><span class="sidebar-text">Add Users</span></a></li>
+                        <li><a href="#"><span class="sidebar-text">Pending Users List</span></a></li>
+                        <li><a href="#"><span class="sidebar-text">All Customers List</span></a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="#" class="menu-item">
@@ -104,7 +110,7 @@ include "../process/conn.php";
                     <button class="mobile-toggle">
                         <i class="fas fa-bars"></i>
                     </button>
-                    <div class="header-text">New Registrations</div>
+                    <div class="header-text">Pending Users List</div>
                 </div>
 
 
@@ -134,7 +140,7 @@ include "../process/conn.php";
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
-                                    <th>Retailer</th>
+                                    <th>Role</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -143,6 +149,26 @@ include "../process/conn.php";
                                 <?php
                                 $all_reg = mysqli_query($conn, "SELECT * FROM registration ORDER BY id DESC");
                                 while ($row = mysqli_fetch_assoc($all_reg)) {
+                                    if ($row['status'] == 'Approved') {
+
+                                        echo "
+                                        <tr>
+                                            <td>
+                                                <!-- <i class='fas fa-chevron-right expand-details'></i> -->
+                                            </td>
+                                            <td>
+                                                <div class='transaction-details'>
+                                                    <p class='customer-name'>{$row['full_name']}</p>
+                                                    <p class='transaction-date'></p>
+                                                </div>
+                                            </td>
+                                            <td>{$row['email']}</td>
+                                            <td>{$row['phone']}</td>
+                                            <td class='role-cell' >{$row['role']}</td>
+                                            <td><span class='status-badge {$row['status']}'>{$row['status']}</span></td>
+                                        </tr>";
+
+                                } elseif($row['status'] == 'Pending'){
                                     // echo $row['name'];
                                     echo "
                                         <tr>
@@ -157,7 +183,7 @@ include "../process/conn.php";
                                             </td>
                                             <td>{$row['email']}</td>
                                             <td>{$row['phone']}</td>
-                                            <td></td>
+                                            <td class='role-cell' >{$row['role']}</td>
                                             <td><span class='status-badge {$row['status']}'>{$row['status']}</span></td>
                                         </tr>";
 
@@ -182,6 +208,10 @@ include "../process/conn.php";
                                                     <form action='./process/assign_role.php' method='post'>
 
                                                     <input type='hidden' name='id' value='{$row['id']}'>
+                                                    <input type='hidden' name='full_name' value='{$row['full_name']}'>
+                                                    <input type='hidden' name='email' value='{$row['email']}'>
+                                                    <input type='hidden' name='phone' value='{$row['phone']}'>
+                                                    <input type='hidden' name='created_at' value='{$row['created_at']}'>
 
                                                     <div class='detail-item'>
                                                         <label>Assigned To:</label>
@@ -202,15 +232,30 @@ include "../process/conn.php";
                                     // <option value='2'>Retailer 2</option>
                                     // <option value='3'>Retailer 3</option>
 
-                                                    $query = "SELECT retailer_id, retailer_name FROM retailer";
-                                                    $result = mysqli_query($conn, $query);
+                                    $query = "SELECT retailer_id, retailer_name FROM retailer";
+                                    $result = mysqli_query($conn, $query);
 
-                                                    while ($row1 = mysqli_fetch_assoc($result)) {
-                                                        echo "<option value='" . $row1['retailer_id'] . "'>" . htmlspecialchars($row1['retailer_name']) . "</option>";
-                                                    }
+                                    while ($row1 = mysqli_fetch_assoc($result)) {
+                                        echo "<option value='" . $row1['retailer_id'] . "'>" . htmlspecialchars($row1['retailer_name']) . "</option>";
+                                    }
 
 
-                                                    echo " </select>
+                                    echo " </select>
+                                                    </div>
+
+                                                    
+                                                    <div class='detail-item'>
+                                                        <label>Commission Type:</label>
+                                                        <select name='commission_type' id='commission_type' required>
+                                                            <option selected disabled>Select commission type</option>
+                                                            <option value='fixed'>Fixed</option>
+                                                            <option value='percentage'>Percentage</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class='detail-item'>
+                                                        <label>Commission Value:</label>
+                                                        <input type='number' name='commission_value' id='commission_value' required>
                                                     </div>
 
                                                     <div class='detail-item'>
@@ -223,6 +268,7 @@ include "../process/conn.php";
                                         </td>
                                     </tr>";
                                 }
+                            }
                                 ?>
 
                             </tbody>
@@ -234,7 +280,7 @@ include "../process/conn.php";
     </div>
 
     <script src="./../template/template.js"></script>
-    <script src="./assets/js/new_reg.js"></script>
+    <script src="./assets/js/pending.js"></script>
 </body>
 
 </html>
