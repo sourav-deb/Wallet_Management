@@ -11,7 +11,7 @@
     <div class="container">
         <div class="registration-card">
             <div class="card-header">
-                <h2>Create Account</h2>
+                <h2>Registration</h2>
                 <p>Please fill in your details to register</p>
             </div>
             

@@ -1,6 +1,6 @@
 <?php
 include "../process/conn.php";
-
+include "./process/auth.php";
 
 ?>
 
@@ -22,7 +22,7 @@ include "../process/conn.php";
     <div class="wrapper">
         <!-- Sidebar -->
         <?php
-            include 'sidebar.php';
+        include 'sidebar.php';
         ?>
 
 
@@ -53,66 +53,70 @@ include "../process/conn.php";
 
             <!-- Main Content -->
             <div class="main-content">
-                <div class="filter-section">
-                    <div class="form-grid">
+                <div class="filter-container">
+                    <div class="filter-section">
+                        <div class="form-grid">
 
-                        <!-- Gmail Search -->
-                        <div class="form-group">
-                            <label for="gmailSearch">Gmail ID</label>
-                            <input type="email" id="gmailid" placeholder="Search by Gmail">
+                            <form action="./process/all_search.php" method="POST" class="filter-form">
+                                <!-- Gmail Search -->
+                                <div class="form-group">
+                                    <label for="gmailSearch">Gmail ID</label>
+                                    <input type="email" id="gmailid" name="gmailid" placeholder="Search by Gmail">
+                                </div>
+
+                                <!-- Number Search -->
+                                <div class="form-group">
+                                    <label for="numberSearch">Mobile No</label>
+                                    <input type="text" id="mobileno" name="mobileno" placeholder="Search by Number">
+                                </div>
+
+                                <!-- Roll Wise -->
+                                <!-- <div class="form-group">
+                                    <label for="rolewise">Role Wise</label>
+                                    <select id="rolewise" name="rolewise">
+                                        <option selected disabled>Select Role</option>
+                                        <option value="retailer">Retailer</option>
+                                        <option value="user">User</option>
+                                    </select>
+                                </div> -->
+
+                                <!-- Users Role -->
+                                <div class="form-group">
+                                    <label for="userrole">Users Role</label>
+                                    <select id="userrole" name="userrole">
+                                        <option selected disabled>Select Role</option>
+                                        <option value="retailer">Retailer</option>
+                                        <option value="user">User</option>
+                                    </select>
+                                </div>
+
+                                <!-- Retailer No -->
+                                <div class="form-group">
+                                    <label for="retailerno">Retailer No</label>
+                                    <input type="number" id="retailerno" name="retailerno" placeholder="Retailer No">
+                                </div>
+
+                                <!-- Min Wallet -->
+                                <div class="form-group">
+                                    <label for="minwallet">Min Wallet</label>
+                                    <input type="number" id="minwallet" name="minwallet" placeholder="Min Wallet">
+                                </div>
+
+                                <!-- Max Wallet -->
+                                <div class="form-group">
+                                    <label for="maxwallet">Max Wallet</label>
+                                    <input type="number" id="maxwallet" name="maxwallet" placeholder="Max Wallet">
+                                </div>
+
                         </div>
 
-                        <!-- Number Search -->
-                        <div class="form-group">
-                            <label for="numberSearch">Mobile No</label>
-                            <input type="text" id="mobileno" placeholder="Search by Number">
+                        <!-- Apply Button -->
+                        <div class="form-actions">
+                            <button type="submit" class="apply-btn" name="apply_filter">
+                                <i class="fas fa-search"></i> Apply Filter
+                            </button>
                         </div>
-
-                        <!-- Roll Wise -->
-                        <div class="form-group">
-                            <label for="rollwise">Roll Wise</label>
-                            <select id="rollwise" placeholder="Search by ID">
-                                <option selected disabled>Select Roll</option>
-                                <option value="Retailer">Retailer</option>
-                                <option value="User">User</option>
-                            </select>
-                        </div>
-
-                        <!-- Users Role -->
-                        <div class="form-group">
-                            <label for="userrole">Users Role</label>
-                            <select id="userrole" placeholder="Search by ID">
-                                <option selected disabled>Select Roll</option>
-                                <option value="Retailer">Retailer</option>
-                                <option value="User">User</option>
-                            </select>
-                        </div>
-
-                        <!-- Retailer No -->
-                        <div class="form-group">
-                            <label for="retailerno">Retailer No</label>
-                            <input type="number" id="retailerno" placeholder="Retailer No">
-                        </div>
-
-                        <!-- Min Wallet -->
-                        <div class="form-group">
-                            <label for="minwallet">Min Wallet</label>
-                            <input type="number" id="minwallet" placeholder="Min Wallet">
-                        </div>
-
-                        <!-- Max Wallet -->
-                        <div class="form-group">
-                            <label for="maxwallet">Max Wallet</label>
-                            <input type="number" id="maxwallet" placeholder="Max Wallet">
-                        </div>
-
-                    </div>
-
-                    <!-- Apply Button -->
-                    <div class="form-actions">
-                        <button type="button" class="apply-btn">
-                            <i class="fas fa-search"></i> Apply Filter
-                        </button>
+                        </form>
                     </div>
                 </div>
 
@@ -124,74 +128,108 @@ include "../process/conn.php";
                                 <tr>
                                     <th width="50"></th>
                                     <th>Details</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Balance</th>
+                                    <th style="display: none;">Gmail ID</th>
+                                    <th style="display: none;">Mobile No</th>
+                                    <th>Parent</th>
+                                    <th>Role</th>
+                                    <th>Comm Type</th>
+                                    <th>Comm Value</th>
+                                    <th>Wallet Balance</th>
+                                    <th>Register Date</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
+                            <!-- <tbody> -->
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <i class="fas fa-chevron-right expand-details"></i>
-                                    </td>
-                                    <td>
-                                        <div class="user-details">
-                                            <p class="customer-name">John Doe</p>
-                                            <p class="user-id">ID: USR123456</p>
-                                        </div>
-                                    </td>
-                                    <td>john.doe@example.com</td>
-                                    <td>+1234567890</td>
-                                    <td>$500.00</td>
-                                    <td><span class="status-badge approved">Active</span></td>
-                                    <td>
-                                        <button class="btn-action login" title="Login as User">
-                                            <i class="fas fa-sign-in-alt"></i>
-                                        </button>
-                                        <button class="btn-action edit" title="Edit User">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn-action delete" title="Delete User">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr class="expandable-row">
-                                    <td colspan="7">
-                                        <div class="expanded-details">
-                                            <div class="details-grid">
-                                                <div class="detail-item">
-                                                    <label>Registration Date:</label>
-                                                    <span>2024-02-20</span>
+                                <?php
+                                if (isset($_SESSION['search_results']) && !empty($_SESSION['search_results'])) {
+                                    foreach ($_SESSION['search_results'] as $row) {
+                                ?>
+                                        <tr data-user-type="<?php echo $row['user_type']; ?>">
+                                            <td>
+                                                <i class="fas fa-chevron-right expand-details"></i>
+                                            </td>
+                                            <td>
+                                                <div class="user-details">
+                                                    <p class="customer-name"><?php echo $row['cust_name']; ?></p>
+                                                    <p class="user-id">ID: <?php echo $row['cust_id']; ?></p>
                                                 </div>
-                                                <div class="detail-item">
-                                                    <label>Last Login:</label>
-                                                    <span>2024-02-25 14:30</span>
+                                            </td>
+                                            <td style="display: none;"><?php echo $row['cust_email']; ?></td>
+                                            <td style="display: none;"><?php echo $row['cust_phone']; ?></td>
+                                            <td><?php echo $row['parent']; ?></td>
+                                            <td><?php echo $row['cust_role']; ?></td>
+                                            <td><?php echo $row['commission_type']; ?></td>
+                                            <td><?php echo $row['commission_value']; ?></td>
+                                            <td>INR <?php echo $row['wallet_balance']; ?></td>
+                                            <td><?php echo $row['created_at']; ?></td>
+                                            <td><span class="status-badge <?php echo strtolower($row['status']); ?>"><?php echo $row['status']; ?></span></td>
+                                            <td>
+                                                <button class="btn-action edit" title="Edit User">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn-action login" title="Login as User">
+                                                    <i class="fas fa-sign-in-alt"></i>
+                                                </button>
+
+                                                <button class="btn-action delete" title="Delete User">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr class="expandable-row">
+                                            <td colspan="10">
+                                                <div class="expanded-details">
+                                                    <div class="details-grid">
+                                                        <div class="detail-item">
+                                                            <label>Full Name:</label>
+                                                            <span><?php echo $row['cust_name']; ?></span>
+                                                        </div>
+                                                        <div class="detail-item">
+                                                            <label>Parent Name:</label>
+                                                            <span><?php echo $row['parent']; ?></span>
+                                                        </div>
+                                                        <div class="detail-item">
+                                                            <label>Role:</label>
+                                                            <span><?php echo $row['cust_role']; ?></span>
+                                                        </div>
+                                                        <div class="detail-item">
+                                                            <label>Commission Type:</label>
+                                                            <span><?php echo $row['comm_type']; ?></span>
+                                                        </div>
+                                                        <div class="detail-item">
+                                                            <label>Commission Value:</label>
+                                                            <span><?php echo $row['comm_value']; ?></span>
+                                                        </div>
+                                                        <div class="detail-item">
+                                                            <label>Wallet Balance:</label>
+                                                            <span>INR <?php echo $row['wallet_balance']; ?></span>
+                                                        </div>
+                                                        <div class="detail-item">
+                                                            <label>Status:</label>
+                                                            <span><?php echo $row['status']; ?></span>
+                                                        </div>
+                                                        <div class="detail-item">
+                                                            <label>Register Date:</label>
+                                                            <span><?php echo $row['created_at']; ?></span>
+                                                        </div>
+                                                        <!-- <div class="detail-item full-width">
+                                                            <label>Register Date:</label>
+                                                            <span><?php echo $row['created_at']; ?></span>
+                                                        </div> -->
+                                                    </div>
                                                 </div>
-                                                <div class="detail-item">
-                                                    <label>Retailer ID:</label>
-                                                    <span>RTL789012</span>
-                                                </div>
-                                                <div class="detail-item">
-                                                    <label>Account Type:</label>
-                                                    <span>Premium</span>
-                                                </div>
-                                                <div class="detail-item">
-                                                    <label>Total Transactions:</label>
-                                                    <span>156</span>
-                                                </div>
-                                                <div class="detail-item">
-                                                    <label>KYC Status:</label>
-                                                    <span>Verified</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <!-- Add more user rows as needed -->
+                                            </td>
+                                        </tr>
+                                <?php
+                                    }
+                                    unset($_SESSION['search_results']);
+                                }
+                                ?>
                             </tbody>
+
+                            <!-- </tbody> -->
                         </table>
                     </div>
                 </div>
@@ -199,6 +237,83 @@ include "../process/conn.php";
             </div>
         </div>
     </div>
+
+    <!-- Edit Modal -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit User Details</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="editForm" action="./process/edit_customer.php" method="POST">
+                    <input type="hidden" id="edit_id" name="id">
+                    <input type="hidden" id="edit_user_type" name="user_type">
+                    <div class="modal-grid">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" id="edit_name" name="edit_name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="edit_email" name="edit_email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" id="edit_phone" name="edit_phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Parent</label>
+                            <select name="edit_parent" id="edit_parent">
+                                <option selected disabled>Select Parent</option>
+                                <option value="admin">Admin</option>
+                                <option value="retailer">Retailer</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select name="edit_role" id="edit_role">
+                                <option selected disabled>Select Role</option>
+                                <option value="retailer">Retailer</option>
+                                <option value="user">User</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Comm Type</label>
+                            <select name="edit_comm_type" id="edit_comm_type">
+                                <option selected disabled>Select Comm Type</option>
+                                <option value="fixed">Fixed</option>
+                                <option value="percentage">Percentage</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Comm Value</label>
+                            <input type="text" id="edit_comm_value" name="edit_comm_value" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Wallet Balance</label>
+                            <input type="number" id="edit_wallet" name="edit_wallet" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="edit_status" name="edit_status" required>
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                                <option value="Suspended">Suspended</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-save" name="edit_customer">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
     <script src="./../template/template.js"></script>
     <script src="./assets/js/all_customer.js"></script>

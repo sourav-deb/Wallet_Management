@@ -14,8 +14,58 @@ document.querySelector('.sidebar-toggle').addEventListener('click', function(e) 
     }
 });
 
-// Handle submenu visibility when sidebar is collapsed (desktop only)
+// // Handle submenu visibility when sidebar is collapsed (desktop only)
+// document.querySelectorAll('.sidebar-menu > li').forEach(item => {
+//     item.addEventListener('mouseenter', function() {
+//         if (window.innerWidth > 768 && document.querySelector('.sidebar').classList.contains('collapsed')) {
+//             const submenu = this.querySelector('.submenu');
+//             if (submenu) {
+//                 submenu.style.display = 'block';
+//                 submenu.style.position = 'absolute';
+//                 submenu.style.left = '70px';
+//                 submenu.style.top = this.offsetTop + 'px';
+//                 submenu.style.minWidth = '200px';
+//             }
+//         }
+//     });
+    
+//     item.addEventListener('mouseleave', function() {
+//         if (window.innerWidth > 768) {
+//             const submenu = this.querySelector('.submenu');
+//             if (submenu) {
+//                 submenu.style.display = '';
+//                 submenu.style.position = '';
+//                 submenu.style.left = '';
+//                 submenu.style.top = '';
+//             }
+//         }
+//     });
+// });
+
+// // Mobile submenu handling
+// document.querySelectorAll('.menu-item').forEach(item => {
+//     item.addEventListener('click', (e) => {
+//         if (e.currentTarget.nextElementSibling && e.currentTarget.nextElementSibling.classList.contains('submenu')) {
+//             e.preventDefault();
+//             const parent = e.currentTarget.parentElement;
+
+//             // Close other open submenus
+//             document.querySelectorAll('.sidebar-menu > li').forEach(li => {
+//                 if (li !== parent && li.classList.contains('active')) {
+//                     li.classList.remove('active');
+//                 }
+//             });
+
+//             // Toggle current submenu
+//             parent.classList.toggle('active');
+//         }
+//     });
+// });
+
+
+// Handle submenu visibility for both desktop and mobile
 document.querySelectorAll('.sidebar-menu > li').forEach(item => {
+    // Desktop hover handling
     item.addEventListener('mouseenter', function() {
         if (window.innerWidth > 768 && document.querySelector('.sidebar').classList.contains('collapsed')) {
             const submenu = this.querySelector('.submenu');
@@ -40,7 +90,22 @@ document.querySelectorAll('.sidebar-menu > li').forEach(item => {
             }
         }
     });
+
+    // Mobile click handling
+    const menuItem = item.querySelector('.menu-item');
+    if (menuItem) {
+        menuItem.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                if (menuItem.nextElementSibling && menuItem.nextElementSibling.classList.contains('submenu')) {
+                    e.preventDefault();
+                    item.classList.toggle('active');
+                }
+            }
+        });
+    }
 });
+
+
 
 // Keep your existing mobile menu code below this
 

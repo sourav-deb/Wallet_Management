@@ -1,6 +1,6 @@
 <?php
 include "../process/conn.php";
-
+include "./process/auth.php";
 
 ?>
 
@@ -72,7 +72,7 @@ include "../process/conn.php";
                                 <?php
                                 $all_reg = mysqli_query($conn, "SELECT * FROM registration ORDER BY id DESC");
                                 while ($row = mysqli_fetch_assoc($all_reg)) {
-                                    if ($row['status'] == 'Approved') {
+                                    if ($row['status'] == 'Approved' || $row['status'] == 'Declined')  {
 
                                         echo "
                                         <tr>
@@ -128,7 +128,7 @@ include "../process/conn.php";
                                                         <span>{$row['phone']}</span>
                                                     </div>
 
-                                                    <form action='./process/assign_role.php' method='post'>
+                                                    <form action='./process/' method='post'>
 
                                                     <input type='hidden' name='id' value='{$row['id']}'>
                                                     <input type='hidden' name='full_name' value='{$row['full_name']}'>
@@ -151,19 +151,15 @@ include "../process/conn.php";
                                                         <select name='retailer' id='retailer' required>
                                                         <option selected disabled>Select retailer</option>";
 
-                                    // <option value='1'>Retailer 1</option>
-                                    // <option value='2'>Retailer 2</option>
-                                    // <option value='3'>Retailer 3</option>
+                                                    $query = "SELECT cust_id, cust_name FROM profile WHERE cust_role = 'retailer'";
+                                                    $result = mysqli_query($conn, $query);
 
-                                    $query = "SELECT retailer_id, retailer_name FROM retailer";
-                                    $result = mysqli_query($conn, $query);
-
-                                    while ($row1 = mysqli_fetch_assoc($result)) {
-                                        echo "<option value='" . $row1['retailer_id'] . "'>" . htmlspecialchars($row1['retailer_name']) . "</option>";
-                                    }
+                                                    while ($row1 = mysqli_fetch_assoc($result)) {
+                                                        echo "<option value='" . $row1['cust_id'] . "'>" . htmlspecialchars($row1['cust_name']) . "</option>";
+                                                    }
 
 
-                                    echo " </select>
+                                        echo " </select>
                                                     </div>
 
                                                     
@@ -178,11 +174,12 @@ include "../process/conn.php";
 
                                                     <div class='detail-item'>
                                                         <label>Commission Value:</label>
-                                                        <input type='number' name='commission_value' id='commission_value' required>
+                                                        <input type='number' name='commission_value' id='commission_value'>
                                                     </div>
 
                                                     <div class='detail-item'>
                                                         <button type='submit' name='assign_role'>Assign Role</button>
+                                                        <button type='submit' name='declined' class='declined-btn'>Declined</button>
                                                     </div>
                                                </form>
 
@@ -199,7 +196,7 @@ include "../process/conn.php";
                     </div>
                 </div>
 
-                
+
             </div>
         </div>
     </div>

@@ -71,8 +71,39 @@ document.querySelectorAll('.btn-action.edit').forEach(button => {
     });
 });
 
-
 // Close modal functionality
-document.querySelector('.close').addEventListener('click', () => {
-    document.getElementById('editModal').style.display = 'none';
+// document.querySelector('.close').addEventListener('click', () => {
+//     document.getElementById('editModal').style.display = 'none';
+// });
+
+// Update registration status
+document.getElementById('registration_status').addEventListener('change', function() {
+    fetch('./process/settings_process.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'setting=registration_status&value=' + (this.checked ? '1' : '0')
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.success) {
+            console.log('Registration status updated');
+            alert('Registration status updated');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+tinymce.init({
+    selector: '#policy-editor',
+    height: 500,
+    width: '100%',
+    plugins: 'lists link table code',
+    toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist | link table | code',
+    setup: function (editor) {
+        editor.on('init', function () {
+            editor.getContainer().style.width = '100%';
+        });
+    }
 });
