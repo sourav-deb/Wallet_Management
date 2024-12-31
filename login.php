@@ -22,7 +22,7 @@
                     <label for="username">Username</label>
                     <div class="input-group">
                         <i class="fas fa-user"></i>
-                        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                        <input type="text" id="username" name="username" placeholder="Enter your username" value="admin" required>
                     </div>
                     <span class="error-message" id="nameError"></span>
                 </div>
@@ -33,7 +33,7 @@
                     <div class="input-group">
                         <!-- <i class="fas fa-lock"></i> -->
                         <i class="fas fa-eye toggle-password" id="togglePassword"></i>
-                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" value="AdminPassword123" required>
                     </div>
                     <span class="error-message" id="passwordError"></span>
                 </div>

@@ -22,7 +22,7 @@ include "./process/auth.php";
     <div class="wrapper">
         <!-- Sidebar -->
         <?php
-            include 'sidebar.php';
+        include 'sidebar.php';
         ?>
 
         <div class="content-wrapper">
@@ -72,7 +72,7 @@ include "./process/auth.php";
                                 <?php
                                 $all_reg = mysqli_query($conn, "SELECT * FROM registration ORDER BY id DESC");
                                 while ($row = mysqli_fetch_assoc($all_reg)) {
-                                    if ($row['status'] == 'Approved' || $row['status'] == 'Declined')  {
+                                    if ($row['status'] == 'Approved' || $row['status'] == 'Declined') {
 
                                         echo "
                                         <tr>
@@ -90,10 +90,9 @@ include "./process/auth.php";
                                             <td class='role-cell' >{$row['role']}</td>
                                             <td><span class='status-badge {$row['status']}'>{$row['status']}</span></td>
                                         </tr>";
-
-                                } elseif($row['status'] == 'Pending'){
-                                    // echo $row['name'];
-                                    echo "
+                                    } elseif ($row['status'] == 'Pending') {
+                                        // echo $row['name'];
+                                        echo "
                                         <tr>
                                             <td>
                                                 <i class='fas fa-chevron-right expand-details'></i>
@@ -110,7 +109,7 @@ include "./process/auth.php";
                                             <td><span class='status-badge {$row['status']}'>{$row['status']}</span></td>
                                         </tr>";
 
-                                    echo "
+                                        echo "
                                         <tr class='expandable-row'>
                                         <td colspan='6'>
                                             <div class='expanded-details'>
@@ -128,7 +127,7 @@ include "./process/auth.php";
                                                         <span>{$row['phone']}</span>
                                                     </div>
 
-                                                    <form action='./process/' method='post'>
+                                                    <form action='./process/assign_role.php' method='post'>
 
                                                     <input type='hidden' name='id' value='{$row['id']}'>
                                                     <input type='hidden' name='full_name' value='{$row['full_name']}'>
@@ -151,12 +150,12 @@ include "./process/auth.php";
                                                         <select name='retailer' id='retailer' required>
                                                         <option selected disabled>Select retailer</option>";
 
-                                                    $query = "SELECT cust_id, cust_name FROM profile WHERE cust_role = 'retailer'";
-                                                    $result = mysqli_query($conn, $query);
+                                        $query = "SELECT cust_id, cust_name FROM profile WHERE cust_role = 'retailer'";
+                                        $result = mysqli_query($conn, $query);
 
-                                                    while ($row1 = mysqli_fetch_assoc($result)) {
-                                                        echo "<option value='" . $row1['cust_id'] . "'>" . htmlspecialchars($row1['cust_name']) . "</option>";
-                                                    }
+                                        while ($row1 = mysqli_fetch_assoc($result)) {
+                                            echo "<option value='" . $row1['cust_id'] . "'>" . htmlspecialchars($row1['cust_name']) . "</option>";
+                                        }
 
 
                                         echo " </select>
@@ -187,15 +186,14 @@ include "./process/auth.php";
                                             </div>
                                         </td>
                                     </tr>";
+                                    }
                                 }
-                            }
                                 ?>
 
                             </tbody>
                         </table>
                     </div>
                 </div>
-
 
             </div>
         </div>

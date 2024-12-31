@@ -71,48 +71,16 @@ document.querySelectorAll('.btn-action.edit').forEach(button => {
     });
 });
 
+
 // Close modal functionality
-// document.querySelector('.close').addEventListener('click', () => {
-//     document.getElementById('editModal').style.display = 'none';
-// });
-
-// Update registration status
-document.getElementById('registration_status').addEventListener('change', function() {
-    fetch('./process/settings_process.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: 'setting=registration_status&value=' + (this.checked ? '1' : '0')
-    })
-    .then(response => response.json())
-    .then(data => {
-        if(data.success) {
-            console.log('Registration status updated');
-            alert('Registration status updated');
-        }
-    })
-    .catch(error => console.error('Error:', error));
+document.querySelector('.close').addEventListener('click', () => {
+    document.getElementById('editModal').style.display = 'none';
 });
 
-
-document.addEventListener('DOMContentLoaded', function () {
-    const currentPath = window.location.pathname.split('/').pop();
-    console.log('Current Path:', currentPath);
-    document.querySelectorAll('.sidebar-menu a').forEach(link => {
-        const linkPath = link.getAttribute('href').split('/').pop();
-        console.log('Link Path:', linkPath);
-        if (linkPath === currentPath) {
-            link.parentElement.classList.add('active');
-        } else {
-            link.parentElement.classList.remove('active');
-        }
-    });
-});
 
 // Add class Active to sidebar menu item
 document.addEventListener('DOMContentLoaded', function (e) {
     e.preventDefault();
-    const menu_item = document.querySelector('.sidebar-menu #settings');
+    const menu_item = document.querySelector('.sidebar-menu #balance-sheet');
     menu_item.classList.add('active');
 });

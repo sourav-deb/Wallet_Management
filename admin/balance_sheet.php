@@ -2,7 +2,6 @@
 include "../process/conn.php";
 include "./process/auth.php";
 
-
 ?>
 
 <!DOCTYPE html>
@@ -11,11 +10,11 @@ include "./process/auth.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Users</title>
+    <title>Balance Sheet</title>
 
     <!-- Add Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./assets/css/add_user.css">
+    <link rel="stylesheet" href="./assets/css/balance.css">
 
 </head>
 
@@ -35,7 +34,7 @@ include "./process/auth.php";
                     <button class="mobile-toggle">
                         <i class="fas fa-bars"></i>
                     </button>
-                    <div class="header-text">All Customers List</div>
+                    <div class="header-text">Balance Sheet</div>
                 </div>
 
 
@@ -58,105 +57,85 @@ include "./process/auth.php";
                     <div class="filter-section">
                         <div class="form-grid">
 
-                            <form action="./process/adduser.php" method="POST" class="filter-form">
-                                <!-- Parent -->
+                            <form action="./process/balance_search.php" method="POST" class="filter-form">
+                                <!-- Customer Id -->
                                 <div class="form-group">
-                                    <label for="parent">Parent</label>
-                                    <select name="parent" id="parent">
-                                        <option selected disabled>Select Parent</option>
-                                        <option value="admin">Admin</option>
-                                        <option value="retailer">Retailer</option>
-                                    </select>
+                                    <label for="customerid">Customer ID</label>
+                                    <input type="text" id="customerid" name="customerid" placeholder="Search by Customer ID">
                                 </div>
 
-                                <!-- Role -->
+                                <!-- Gmail Search -->
                                 <div class="form-group">
-                                    <label for="role">Role</label>
-                                    <select name="role" id="role" onchange="showRetailerSelect(this.value)">
-                                        <option selected disabled>Select Role</option>
-                                        <option value="retailer">Retailer</option>
-                                        <option value="user">User</option>
-                                    </select>
+                                    <label for="gmailSearch">Gmail ID</label>
+                                    <input type="email" id="gmailid" name="gmailid" placeholder="Search by Gmail">
                                 </div>
 
-                                <!-- Retailer Selection (Initially Hidden) -->
-                                <div class="form-group" id="retailerSelect" style="display:none;">
-                                    <label for="parent_retailer">Select Retailer</label>
-                                    <select name="parent_retailer" id="parent_retailer">
-                                        <option selected disabled>Select Retailer</option>
-                                        <?php
-                                        $retailerQuery = "SELECT id, cust_name FROM customer WHERE status='Active'";
-                                        $retailers = mysqli_query($conn, $retailerQuery);
-                                        while ($retailer = mysqli_fetch_assoc($retailers)) {
-                                            echo "<option value='" . $retailer['id'] . "'>" . $retailer['cust_name'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-
-                                <!-- Full Name -->
+                                <!-- Number Search -->
                                 <div class="form-group">
-                                    <label for="fullname">Full Name</label>
-                                    <input type="text" id="fullname" name="fullname" placeholder="Full Name">
-                                </div>
-
-                                <!-- Commission Type -->
-                                <div class="form-group">
-                                    <label for="comm_type">Commission Type</label>
-                                    <select name="comm_type" id="comm_type">
-                                        <option selected disabled>Select Commission Type</option>
-                                        <option value="fixed">Fixed</option>
-                                        <option value="percentage">Percentage</option>
-                                    </select>
-                                </div>
-
-                                <!-- Commission Value -->
-                                <div class="form-group">
-                                    <label for="comm_value">Commission Value</label>
-                                    <input type="number" id="comm_value" name="comm_value" placeholder="Commission Value">
-                                </div>
-
-                                <!-- Gmail ID -->
-                                <div class="form-group">
-                                    <label for="gmailid">Gmail ID</label>
-                                    <input type="email" id="gmailid" name="email" placeholder="Gmail ID">
-                                </div>
-
-                                <!-- Mobile No -->
-                                <div class="form-group">
-                                    <label for="mobileno">Mobile No</label>
-                                    <input type="text" id="mobileno" name="mobileno" placeholder="Mobile No">
-                                </div>
-
-                                <!-- Full Address -->
-                                <div class="form-group">
-                                    <label for="fulladdress">Full Address</label>
-                                    <input type="text" id="fulladdress" name="fulladdress" placeholder="Full Address">
-                                </div>
-
-                                <!-- Status -->
-                                <div class="form-group">
-                                    <label for="status">Status</label>
-                                    <select id="status" name="status">
-                                        <option value="Active">Active</option>
-                                        <option value="Inactive">Inactive</option>
-                                        <option value="Suspended">Suspended</option>
-                                    </select>
+                                    <label for="numberSearch">Mobile No</label>
+                                    <input type="text" id="mobileno" name="mobileno" placeholder="Search by Number">
                                 </div>
 
                         </div>
 
                         <!-- Apply Button -->
                         <div class="form-actions">
-                            <button type="submit" class="apply-btn" name="add_user">
-                                <i class="fas fa-search"></i> Save
+                            <button type="submit" class="apply-btn" name="get_balance">
+                                <i class="fas fa-search"></i> Open Balance Sheet
                             </button>
                         </div>
                         </form>
                     </div>
                 </div>
 
+                <!-- Results section -->
+                <div class="results-section">
+                    <div class="table-container">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Cust Id</th>
+                                    <th style="display: none;">Gmail ID</th>
+                                    <th style="display: none;">Mobile No</th>
+                                    <th>Date & Time</th>
+                                    <th>Dr.</th>
+                                    <th>Cr.</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <!-- <tbody> -->
+                            <tbody>
+                                <?php
+                                if (isset($_SESSION['search_results']) && !empty($_SESSION['search_results'])) {
+                                    foreach ($_SESSION['search_results'] as $row) {
+                                ?>
+                                        <tr data-user-type="<?php echo $row['user_type']; ?>">
+                                            
+                                            <td>
+                                                <div class="user-details">
+                                                    <p class="customer-name"><?php echo $row['cust_id']; ?></p>
+                                                    <p class="user-id">ID: <?php echo $row['cust_id']; ?></p>
+                                                </div>
+                                            </td>
+                                            <td style="display: none;"><?php echo ''; ?></td>
+                                            <td style="display: none;"><?php echo ''; ?></td>
+                                            <td><?php echo $row['date_time']; ?></td>
+                                            <td><?php echo $row['debit']; ?></td>
+                                            <td><?php echo $row['credit']; ?></td>
+                                            <td><?php echo $row['balance']; ?></td>
+                                            
+                                        </tr>
+                                <?php
+                                    }
+                                    unset($_SESSION['search_results']);
+                                }
+                                ?>
+                            </tbody>
 
+                            <!-- </tbody> -->
+                        </table>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -240,7 +219,7 @@ include "./process/auth.php";
 
 
     <script src="./../template/template.js"></script>
-    <script src="./assets/js/add_user.js"></script>
+    <script src="./assets/js/balance.js"></script>
 </body>
 
 </html>

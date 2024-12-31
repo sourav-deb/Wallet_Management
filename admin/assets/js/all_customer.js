@@ -76,3 +76,10 @@ document.querySelectorAll('.btn-action.edit').forEach(button => {
 document.querySelector('.close').addEventListener('click', () => {
     document.getElementById('editModal').style.display = 'none';
 });
+
+// Add class Active to sidebar menu item
+document.addEventListener('DOMContentLoaded', function (e) {
+    e.preventDefault();
+    const menu_item = document.querySelector('.sidebar-menu #user-management');
+    menu_item.classList.add('active');
+});

@@ -80,11 +80,11 @@ assignedToSelect.forEach(select => {
 });
 
 
-
+// ./process/assign_role.php
 
 // Add class Active to sidebar menu item
 document.addEventListener('DOMContentLoaded', function (e) {
     e.preventDefault();
-    const menu_item = document.querySelector('.sidebar-menu #payment-requests');
+    const menu_item = document.querySelector('.sidebar-menu #withdrawal-requests');
     menu_item.classList.add('active');
 });

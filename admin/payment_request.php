@@ -10,7 +10,7 @@ include "./process/auth.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pending Users</title>
+    <title>New Payment Request</title>
 
     <!-- Add Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -33,7 +33,7 @@ include "./process/auth.php";
                     <button class="mobile-toggle">
                         <i class="fas fa-bars"></i>
                     </button>
-                    <div class="header-text">Pending Users List</div>
+                    <div class="header-text">New Payment Requestt</div>
                 </div>
 
 

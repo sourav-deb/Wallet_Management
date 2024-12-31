@@ -20,7 +20,7 @@
                     <label for="name">Full Name</label>
                     <div class="input-group">
                         <i class="fas fa-user"></i>
-                        <input type="text" id="name" name="name" placeholder="Enter your full name" required value="Shubham">
+                        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
                     </div>
                     <span class="error-message" id="nameError"></span>
                 </div>
@@ -29,7 +29,7 @@
                     <label for="email">Email Address</label>
                     <div class="input-group">
                         <i class="fas fa-envelope"></i>
-                        <input type="email" id="email" name="email" placeholder="Enter your email" required value="shubham@gmail.com">
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
                     </div>
                     <span class="error-message" id="emailError"></span>
                 </div>
@@ -38,7 +38,7 @@
                     <label for="phone">Phone Number</label>
                     <div class="input-group">
                         <i class="fas fa-phone"></i>
-                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required value="9876543210">
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
                     </div>
                     <span class="error-message" id="phoneError"></span>
                 </div>

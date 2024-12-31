@@ -10,7 +10,7 @@
     <div class="sidebar-header">
         <div class="header-content">
             <i class="fas fa-bars sidebar-toggle"></i>
-            <span class="sidebar-text">Wallet</span>
+            <span class="sidebar-text">Wallet Management</span>
         </div>
         <!-- Mobile close button -->
         <button class="mobile-close">
@@ -19,7 +19,13 @@
     </div>
 
     <ul class="sidebar-menu">
-        <li class="active">
+        <li id="dashboard">
+            <a href="./dashboard.php" class="menu-item">
+                <i class="fas fa-tachometer-alt"></i>
+                <span class="sidebar-text">Dashboard</span>
+            </a>
+        </li>
+        <li id="user-management">
             <a href="#" class="menu-item">
                 <i class="fas fa-tachometer-alt"></i>
                 <span class="sidebar-text">User Management</span>
@@ -31,47 +37,43 @@
                 <li><a href="./all_customer.php"><span class="sidebar-text">All Customers List</span></a></li>
             </ul>
         </li>
-        <li>
+        <li id="refill-orders">
             <a href="#" class="menu-item">
                 <i class="fas fa-sync"></i>
                 <span class="sidebar-text">Refill Orders</span>
                 <!-- <i class="fas fa-chevron-down submenu-arrow"></i> -->
             </a>
         </li>
-        <li>
+        <li id="payment-requests">
             <a href="#" class="menu-item">
                 <i class="fas fa-money-bill"></i>
                 <span class="sidebar-text">Payment Requests</span>
                 <i class="fas fa-chevron-down submenu-arrow"></i>
             </a>
             <ul class="submenu">
-                <li><a href="./new_payment_request.php"><span class="sidebar-text">New Requests</span></a></li>
-                <li><a href="#"><span class="sidebar-text">Processed</span></a></li>
+                <li><a href="./payment_request.php"><span class="sidebar-text">New Requests</span></a></li>
+                <li><a href="./payment_processed.php"><span class="sidebar-text">Processed</span></a></li>
             </ul>
         </li>
-        <li>
+        <li id="withdrawal-requests">
             <a href="#" class="menu-item">
                 <i class="fas fa-money-bill"></i>
                 <span class="sidebar-text">Withdrawal Requests</span>
                 <i class="fas fa-chevron-down submenu-arrow"></i>
             </a>
             <ul class="submenu">
-                <li><a href="#"><span class="sidebar-text">New Requests</span></a></li>
-                <li><a href="#"><span class="sidebar-text">Processed</span></a></li>
+                <li><a href="./withdrawal_request.php"><span class="sidebar-text">New Requests</span></a></li>
+                <li><a href="./withdrawal_processed.php"><span class="sidebar-text">Processed</span></a></li>
             </ul>
         </li>
-        <li>
-            <a href="#" class="menu-item">
+        <li id="balance-sheet">
+            <a href="./balance_sheet.php" class="menu-item">
                 <i class="fas fa-money-bill"></i>
                 <span class="sidebar-text">Balance Sheets</span>
-                <i class="fas fa-chevron-down submenu-arrow"></i>
+                <!-- <i class="fas fa-chevron-down submenu-arrow"></i> -->
             </a>
-            <ul class="submenu">
-                <li><a href="#"><span class="sidebar-text">New Requests</span></a></li>
-                <li><a href="#"><span class="sidebar-text">Processed</span></a></li>
-            </ul>
         </li>
-        <li>
+        <li id="payout-management">
             <a href="#" class="menu-item">
                 <i class="fas fa-money-bill"></i>
                 <span class="sidebar-text">Payout Management</span>
@@ -79,25 +81,19 @@
             </a>
 
         </li>
-        <li>
-            <a href="#" class="menu-item">
+        <li id="settings">
+            <a href="" class="menu-item">
                 <i class="fas fa-credit-card"></i>
                 <span class="sidebar-text">Settings</span>
                 <i class="fas fa-chevron-down submenu-arrow"></i>
             </a>
             <ul class="submenu">
-                <li><a href="#"><span class="sidebar-text">Admin Bank</span></a></li>
+                <li><a href="./add_bank.php"><span class="sidebar-text">Admin Bank</span></a></li>
                 <li><a href="./main_settings.php"><span class="sidebar-text">Main Settings</span></a></li>
                 <li><a href="./privacy_policy.php"><span class="sidebar-text">Privacy Policy</span></a></li>
             </ul>
         </li>
-        <li>
-            <a href="#" class="menu-item">
-                <i class="fas fa-balance-scale"></i>
-                <span class="sidebar-text">Balance</span>
-            </a>
-        </li>
-        <li>
+        <li id="logout">
             <a href="./process/logout.php" class="menu-item">
                 <i class="fas fa-sign-out-alt"></i>
                 <span class="sidebar-text">Logout</span>
@@ -113,3 +109,4 @@
 <?php
 include "./process/auth.php";
 ?>
+

@@ -84,7 +84,8 @@ include "./process/auth.php";
                                 <!-- Commission Value -->
                                 <div class="form-group">
                                     <label for="comm-value">Commission Value</label>
-                                    <input type="text" id="comm-value" name="comm-value" placeholder="Enter Commission Value">
+                                    <input type="text" id="comm-value" name="comm-value"
+                                        placeholder="Enter Commission Value">
                                 </div>
 
 
@@ -162,8 +163,9 @@ include "./process/auth.php";
                                 <!-- Email Body -->
                                 <div class="form-group">
                                     <label for="adminemail-body">SMTP Email Body</label>
-                                    <textarea id="adminemail-body" name="adminemail-body"
-                                        placeholder="Enter Email Body" rows="4" cols="50"><?php echo htmlspecialchars($smtp_data['body'] ?? ''); ?></textarea>
+                                    <textarea id="adminemail-body" name="adminemail-body" placeholder="Enter Email Body"
+                                        rows="4"
+                                        cols="50"><?php echo htmlspecialchars($smtp_data['body'] ?? ''); ?></textarea>
                                 </div>
 
                         </div>
@@ -176,14 +178,15 @@ include "./process/auth.php";
                         </form>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
 
 
-            <script src="./../template/template.js"></script>
-            <script src="./assets/js/main_settings.js"></script>
+    <script src="./../template/template.js"></script>
+    <script src="./assets/js/main_settings.js"></script>
+
 </body>
 
 </html>

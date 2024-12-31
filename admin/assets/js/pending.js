@@ -82,3 +82,9 @@ assignedToSelect.forEach(select => {
 
 // ./process/assign_role.php
 
+// Add class Active to sidebar menu item
+document.addEventListener('DOMContentLoaded', function (e) {
+    e.preventDefault();
+    const menu_item = document.querySelector('.sidebar-menu #user-management');
+    menu_item.classList.add('active');
+});
