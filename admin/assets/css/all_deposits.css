@@ -816,6 +816,12 @@ ul.sidebar-menu{
     font-weight: 600;
 }
 
+.status-badge.commissioned {
+    background-color: #e8f5e9;
+    color: #00900c;
+    font-weight: 600;
+}
+
 .status-badge.declined {
     background-color: #ffebee;
     color: #c62828;
@@ -1308,4 +1314,52 @@ ul.sidebar-menu{
     }
 }
 
+/* View Image Modal */
+/* Image Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    padding-top: 50px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+}
 
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 800px;
+    position: relative;
+}
+
+.modal-content img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.close-2 {
+    position: absolute;
+    right: -30px;
+    top: -30px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+.view-btn{
+    background-color: #2e7d32;
+    height: 40px;
+    border: 0;
+    width: 50%;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 3px;
+}

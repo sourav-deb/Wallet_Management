@@ -10,7 +10,7 @@ include "./process/auth.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pending Users</title>
+    <title>Pending Retailers</title>
 
     <!-- Add Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -33,7 +33,7 @@ include "./process/auth.php";
                     <button class="mobile-toggle">
                         <i class="fas fa-bars"></i>
                     </button>
-                    <div class="header-text">Pending Users List</div>
+                    <div class="header-text">Pending Retailers List</div>
                 </div>
 
 
@@ -137,31 +137,15 @@ include "./process/auth.php";
 
                                                     <div class='detail-item'>
                                                         <label>Assigned To:</label>
-                                                        <select name='assigned_to' id='assigned_to' required>
+                                                        <input type='text' name='assigned_to' value='Retailer' readonly>
+                                                        <!-- <select name='assigned_to' id='assigned_to' required>
                                                             <option selected disabled>Select role</option>
                                                             <option value='retailer'>Retailer</option>
                                                             <option value='user'>User</option>
-                                                        </select>
+                                                        </select> -->
                                                     </div>
 
 
-                                                    <div class='detail-item retailer-select' style='display: none;'>
-                                                        <label>Retailer:</label>
-                                                        <select name='retailer' id='retailer' required>
-                                                        <option selected disabled>Select retailer</option>";
-
-                                        $query = "SELECT cust_id, cust_name FROM profile WHERE cust_role = 'retailer'";
-                                        $result = mysqli_query($conn, $query);
-
-                                        while ($row1 = mysqli_fetch_assoc($result)) {
-                                            echo "<option value='" . $row1['cust_id'] . "'>" . htmlspecialchars($row1['cust_name']) . "</option>";
-                                        }
-
-
-                                        echo " </select>
-                                                    </div>
-
-                                                    
                                                     <div class='detail-item'>
                                                         <label>Commission Type:</label>
                                                         <select name='commission_type' id='commission_type' required>

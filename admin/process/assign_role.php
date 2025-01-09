@@ -19,7 +19,7 @@ include '../../auth.php';
 if (isset($_POST['assign_role'])) {
     $id = $_POST['id'];
     $role = $_POST['assigned_to'] ?? '';
-    $retailer = $_POST['retailer'] ?? '';
+    // $retailer = $_POST['retailer'] ?? '';
     $full_name = $_POST['full_name'] ?? '';
     $email = $_POST['email'] ?? '';
     $phone = $_POST['phone'] ?? '';
@@ -37,46 +37,29 @@ if (isset($_POST['assign_role'])) {
         exit;
     }
 
-    if ($role == 'user') {
-        if (empty($retailer)) {
-            echo "Please select a retailer";
-            echo "<script>window.location.href = '../new_registrations.php?error=missing_retailer';</script>";
-            exit;
-        } else {
-            echo "Retailer selected";
-            // Update
-            $query = "UPDATE registration SET status = 'Approved', role = '$role' WHERE id = '$id'";
-            mysqli_query($conn, $query);
-
-            // $query2 = "INSERT INTO user (user_id, user_name, email, phone, retailer, retailer_id, commission_type, commission_value, created_at) VALUES ('$role.$id', '$full_name', '$email', '$phone', '$retailer', '$retailer', '$commission_type', '$commission_value', '$created_at')";
-            // mysqli_query($conn, $query2);
-
-            addProfile($conn, $id, $full_name, $role, $email, $phone, 'retailer', $retailer, $retailer_id, $commission_type, $commission_value, 'Active', $created_at);
-            addCustomer($conn, $id, $full_name, $role, $email, $phone, 'retailer', $retailer, $retailer_id, $commission_type, $commission_value, 'Active', $created_at);
-
-            echo "Generated Password: " . generatePassword();
-            $password = generatePassword();
-            mailtoCustomer('Your account has been approved and you are now a user of our system. You can now login to your account and start using our services.',  $password);
-
-            echo "<script>window.location.href = '../pending.php?success=role_assigned';</script>";
-        }
-    } elseif ($role == 'retailer') {
+   if ($role == 'retailer' || $role == 'Retailer') {
         echo "Retailer selected";
         // Update
 
         $query = "UPDATE registration SET status = 'Approved', role = '$role' WHERE id = '$id'";
         mysqli_query($conn, $query);
 
-        // $query2 = "INSERT INTO retailer (retailer_id, retailer_name, email, phone, commission_type, commission_value, created_at) VALUES ('$role.$id', '$full_name', '$email', '$phone', '$commission_type', '$commission_value', '$created_at')";
-        // mysqli_query($conn, $query2);
+        // Get the total count of rows in the 'profile' table
+        $query3 = "SELECT COUNT(*) as total_rows FROM profile WHERE user_id = '$id'";
+        $result = mysqli_query($conn, $query3);
+        $row = mysqli_fetch_assoc($result);
+        $total_rows = $row['total_rows'];
+        $total_rows++;  // Increment the total rows by 1
+        $id = $total_rows;
+        
 
-        addProfile($conn, $id, $full_name, $role, $email, $phone, 'admin', $retailer, $retailer, $commission_type, $commission_value, 'Active', $created_at);
-        addCustomer($conn, $id, $full_name, $role, $email, $phone, 'admin', $retailer, $retailer, $commission_type, $commission_value, 'Active', $created_at);
-
-        echo "Generated Password: " . generatePassword();
         $password = generatePassword();
         mailtoCustomer('Your account has been approved and you are now a user of our system. You can now login to your account and start using our services.',  $password);
 
+        addProfile($conn, $id, $full_name, $role, $email, $phone, 'admin', $retailer, $retailer, $commission_type, $commission_value, 'Active', $created_at, $password);
+        addCustomer($conn, $id, $full_name, $role, $email, $phone, 'admin', $retailer, $retailer, $commission_type, $commission_value, 'Active', $created_at);
+
+        
         echo "<script>window.location.href = '../pending.php?success=role_assigned';</script>";
     }
 
@@ -103,10 +86,10 @@ function addCustomer($conn, $id, $full_name, $role, $email, $phone, $parent, $re
     mysqli_query($conn, $query);
 }
 
-function addProfile($conn, $id, $full_name, $role, $email, $phone, $parent, $retailer, $retailer_id, $commission_type, $commission_value, $status, $created_at)
+function addProfile($conn, $id, $full_name, $role, $email, $phone, $parent, $retailer, $retailer_id, $commission_type, $commission_value, $status, $created_at, $password)
 {
     $cust_id = strtoupper($role).'0'.$id;
-    $password = generatePassword();
+    // $password = generatePassword();
 
     $query = "INSERT INTO profile (cust_id, cust_name, cust_role, cust_email, cust_phone, status, password,  created_at) 
                             VALUES ('$cust_id', '$full_name', '$role', '$email', '$phone', '$status', '$password', '$created_at')";

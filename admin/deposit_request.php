@@ -15,7 +15,7 @@ include "./process/auth.php";
 
     <!-- Add Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./assets/css/new_withdrawal.css">
+    <link rel="stylesheet" href="./assets/css/transfer_form.css">
 
 </head>
 
@@ -58,13 +58,13 @@ include "./process/auth.php";
                     <div class="filter-section">
                         <div class="form-grid">
 
-                            <form action="./process/withdrawal_req.php" method="POST" class="filter-form"
+                            <form action="./process/new_deposit.php" method="POST" class="filter-form"
                                 enctype="multipart/form-data">
 
                                 <!-- Retailer Id -->
                                 <div class="form-group">
                                     <label for="transaction-id">Retailer Id</label>
-                                    <select name="retailer_id" id="retailer_id" required>
+                                    <select name="retailer_id" id="retailer_id"required>
                                         <option selected disabled>Select Retailer</option>
                                         <?php
                                         $sql = "SELECT cust_id, cust_name FROM customer WHERE cust_role = 'retailer' ORDER BY cust_name ASC";
@@ -79,17 +79,17 @@ include "./process/auth.php";
                                     </select>
                                 </div>
 
-                                <!-- Account No -->
+                                <!-- Transaction Id -->
                                 <div class="form-group">
-                                    <label for="account_no">Account No</label>
-                                    <input type="text" name="account_no" id="account_no"
-                                        placeholder="Account No">
+                                    <label for="transaction-id">Transaction Id</label>
+                                    <input type="text" name="transaction-id" id="transaction-id"
+                                        placeholder="Transaction Id">
                                 </div>
 
-                                <!-- Transfer To -->
+                                <!-- UTR No. -->
                                 <div class="form-group">
-                                    <label for="transfer_to">Transfer To</label>
-                                    <input type="text" name="transfer_to" id="transfer_to" placeholder="Transfer To">
+                                    <label for="utr-no">UTR No.</label>
+                                    <input type="text" name="utr-no" id="utr-no" placeholder="UTR No.">
                                 </div>
 
                                 <!-- Amount -->
@@ -105,16 +105,16 @@ include "./process/auth.php";
                                 </div>
 
                                 <!-- Full Name -->
-                                <!-- <div class="form-group">
+                                <div class="form-group">
                                     <label for="fullname">Deposited By</label>
                                     <input type="text" id="fullname" name="deposited_by" placeholder="Full Name">
-                                </div> -->
+                                </div>
 
                                 <!-- Gmail ID -->
-                                <!-- <div class="form-group">
+                                <div class="form-group">
                                     <label for="gmailid">Gmail ID</label>
                                     <input type="email" id="gmailid" name="email" placeholder="Gmail ID">
-                                </div> -->
+                                </div>
 
                                 <!-- Mobile No -->
                                 <div class="form-group">
@@ -133,7 +133,7 @@ include "./process/auth.php";
 
                         <!-- Apply Button -->
                         <div class="form-actions">
-                            <button type="submit" class="apply-btn" name="new_withdrawal">
+                            <button type="submit" class="apply-btn" name="new_deposit">
                                 <i class="fas fa-search"></i> Save
                             </button>
                         </div>
@@ -225,7 +225,7 @@ include "./process/auth.php";
 
 
     <script src="./../template/template.js"></script>
-    <script src="./assets/js/new_withdrawal.js"></script>
+    <script src="./assets/js/transfer_request.js"></script>
 </body>
 
 </html>

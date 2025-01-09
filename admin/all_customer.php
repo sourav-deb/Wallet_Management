@@ -10,7 +10,7 @@ include "./process/auth.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Customers</title>
+    <title>All Retailers</title>
 
     <!-- Add Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -34,7 +34,7 @@ include "./process/auth.php";
                     <button class="mobile-toggle">
                         <i class="fas fa-bars"></i>
                     </button>
-                    <div class="header-text">All Customers List</div>
+                    <div class="header-text">All Retailers List</div>
                 </div>
 
 
@@ -162,7 +162,7 @@ include "./process/auth.php";
                                             <td><?php echo $row['cust_role']; ?></td>
                                             <td><?php echo $row['commission_type']; ?></td>
                                             <td><?php echo $row['commission_value']; ?></td>
-                                            <td>INR <?php echo $row['wallet_balance']; ?></td>
+                                            <td>INR <?php echo $row['balance']; ?></td>
                                             <td><?php echo $row['created_at']; ?></td>
                                             <td><span class="status-badge <?php echo strtolower($row['status']); ?>"><?php echo $row['status']; ?></span></td>
                                             <td>
@@ -204,7 +204,7 @@ include "./process/auth.php";
                                                         </div>
                                                         <div class="detail-item">
                                                             <label>Wallet Balance:</label>
-                                                            <span>INR <?php echo $row['wallet_balance']; ?></span>
+                                                            <span>INR <?php echo $row['balance']; ?></span>
                                                         </div>
                                                         <div class="detail-item">
                                                             <label>Status:</label>

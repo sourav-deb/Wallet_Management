@@ -11,7 +11,7 @@ include "./process/auth.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Users</title>
+    <title>Add Retailer</title>
 
     <!-- Add Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -35,7 +35,7 @@ include "./process/auth.php";
                     <button class="mobile-toggle">
                         <i class="fas fa-bars"></i>
                     </button>
-                    <div class="header-text">All Customers List</div>
+                    <div class="header-text">Add Retailer</div>
                 </div>
 
 
@@ -60,27 +60,28 @@ include "./process/auth.php";
 
                             <form action="./process/adduser.php" method="POST" class="filter-form">
                                 <!-- Parent -->
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="parent">Parent</label>
                                     <select name="parent" id="parent">
                                         <option selected disabled>Select Parent</option>
                                         <option value="admin">Admin</option>
                                         <option value="retailer">Retailer</option>
                                     </select>
-                                </div>
+                                </div> -->
 
                                 <!-- Role -->
                                 <div class="form-group">
                                     <label for="role">Role</label>
-                                    <select name="role" id="role" onchange="showRetailerSelect(this.value)">
+                                    <input type="text" name="role" id="role" value="Retailer" readonly>
+                                    <!-- <select name="role" id="role" onchange="showRetailerSelect(this.value)">
                                         <option selected disabled>Select Role</option>
                                         <option value="retailer">Retailer</option>
                                         <option value="user">User</option>
-                                    </select>
+                                    </select> -->
                                 </div>
 
                                 <!-- Retailer Selection (Initially Hidden) -->
-                                <div class="form-group" id="retailerSelect" style="display:none;">
+                                <!-- <div class="form-group" id="retailerSelect" style="display:none;">
                                     <label for="parent_retailer">Select Retailer</label>
                                     <select name="parent_retailer" id="parent_retailer">
                                         <option selected disabled>Select Retailer</option>
@@ -92,7 +93,7 @@ include "./process/auth.php";
                                         }
                                         ?>
                                     </select>
-                                </div>
+                                </div> -->
 
                                 <!-- Full Name -->
                                 <div class="form-group">

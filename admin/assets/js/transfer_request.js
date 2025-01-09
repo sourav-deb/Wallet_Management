@@ -39,6 +39,6 @@ function showRetailerSelect(role) {
 // Add class Active to sidebar menu item
 document.addEventListener('DOMContentLoaded', function (e) {
     e.preventDefault();
-    const menu_item = document.querySelector('.sidebar-menu #withdrawal-requests');
+    const menu_item = document.querySelector('.sidebar-menu #amount-deposited');
     menu_item.classList.add('active');
 });

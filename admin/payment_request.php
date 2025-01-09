@@ -33,7 +33,7 @@ include "./process/auth.php";
                     <button class="mobile-toggle">
                         <i class="fas fa-bars"></i>
                     </button>
-                    <div class="header-text">New Payment Requestt</div>
+                    <div class="header-text">New Payment Request</div>
                 </div>
 
 
