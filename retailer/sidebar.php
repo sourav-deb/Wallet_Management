@@ -25,7 +25,7 @@
                 <span class="sidebar-text">Dashboard</span>
             </a>
         </li>
-        <li id="user-management">
+        <li id="request_balance">
             <a href="#" class="menu-item">
                 <i class="fas fa-tachometer-alt"></i>
                 <span class="sidebar-text">Request Balance</span>
@@ -33,7 +33,7 @@
             </a>
             <ul class="submenu">
                 <li><a href="./balance_request.php"><span class="sidebar-text">Request Form</span></a></li>
-                <li><a href=""><span class="sidebar-text">All Requests List</span></a></li>
+                <li><a href="./all_balance_req.php"><span class="sidebar-text">All Requests List</span></a></li>
             </ul>
         </li>
 
@@ -87,7 +87,7 @@
             </ul>
         </li>
         <li id="logout">
-            <a href="./process/.php" class="menu-item">
+            <a href="./process/logout.php" class="menu-item">
                 <i class="fas fa-sign-out-alt"></i>
                 <span class="sidebar-text">Logout</span>
             </a>

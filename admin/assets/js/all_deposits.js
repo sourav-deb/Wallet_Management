@@ -79,6 +79,7 @@ document.querySelector('.close-2').addEventListener('click', () => {
     document.getElementById('imageModal').style.display = 'none';
 });
 
+// Open View Image Modal
 const modal = document.getElementById("imageModal");
 const modalImg = document.getElementById("modalImage");
 const span = document.getElementsByClassName("close")[0];

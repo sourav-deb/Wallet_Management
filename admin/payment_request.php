@@ -91,7 +91,8 @@ include "./process/auth.php";
                                             <td><span class='status-badge {$row['status']}'>{$row['status']}</span></td>
                                         </tr>";
                                         $cust_id = $row['cust_id'];
-                                        $all_cust = mysqli_query($conn, "SELECT * FROM customer WHERE cust_id = '$cust_id' ");
+                                        $all_cust = mysqli_query($conn, "SELECT * FROM customer");
+                                        // $all_cust = mysqli_query($conn, "SELECT * FROM customer WHERE cust_id = '$cust_id' ");
                                         while ($row1 = mysqli_fetch_assoc($all_cust)) {
 
                                     echo "

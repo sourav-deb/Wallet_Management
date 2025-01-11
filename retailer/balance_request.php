@@ -58,20 +58,20 @@ include "./process/auth.php";
                     <div class="filter-section">
                         <div class="form-grid">
 
-                            <form action="./process/new_deposit.php" method="POST" class="filter-form"
+                            <form action="./process/balance_req.php" method="POST" class="filter-form"
                                 enctype="multipart/form-data">
 
                                 <!-- Transaction Id -->
                                 <div class="form-group">
                                     <label for="transaction-id">Transaction Id</label>
-                                    <input type="text" name="transaction-id" id="transaction-id"
+                                    <input type="text" name="transaction_id" id="transaction-id"
                                         placeholder="Transaction Id">
                                 </div>
 
                                 <!-- UTR No. -->
                                 <div class="form-group">
                                     <label for="utr-no">UTR No.</label>
-                                    <input type="text" name="utr-no" id="utr-no" placeholder="UTR No.">
+                                    <input type="text" name="utr_no" id="utr-no" placeholder="UTR No.">
                                 </div>
 
                                 <!-- Amount -->
@@ -84,24 +84,6 @@ include "./process/auth.php";
                                 <div class="form-group">
                                     <label for="screnshot">Screnshot</label>
                                     <input type="file" name="screnshot" id="screnshot" multiple>
-                                </div>
-
-                                <!-- Full Name -->
-                                <div class="form-group">
-                                    <label for="fullname">Deposited By</label>
-                                    <input type="text" id="fullname" name="deposited_by" placeholder="Full Name">
-                                </div>
-
-                                <!-- Gmail ID -->
-                                <div class="form-group">
-                                    <label for="gmailid">Gmail ID</label>
-                                    <input type="email" id="gmailid" name="email" placeholder="Gmail ID">
-                                </div>
-
-                                <!-- Mobile No -->
-                                <div class="form-group">
-                                    <label for="mobileno">Mobile No</label>
-                                    <input type="text" id="mobileno" name="mobileno" placeholder="Mobile No">
                                 </div>
 
                                 <!-- Remark -->

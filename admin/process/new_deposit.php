@@ -18,9 +18,7 @@ if (isset($_POST['new_deposit'])) {
         mkdir($target_dir, 0777, true);
         echo "Directory created!";
     }
-
-
-    
+   
     $screenshot = $_FILES['screnshot'];
     $file_extension = pathinfo($screenshot["name"], PATHINFO_EXTENSION);
     $target_file = $target_dir . $transaction_id . '.' . $file_extension;
