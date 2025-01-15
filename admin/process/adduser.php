@@ -113,13 +113,13 @@ function mailtoCustomer($message, $password)
     // set port to connect smtp
     $mail->Port = "587";
     // set gmail username
-    $mail->Username = "connect@techno3gamma.in";
+    $mail->Username = "";
     // set gmail password
-    $mail->Password = "Brainkraft1@";
+    $mail->Password = "";
     // set email subect
     $mail->Subject = "Account Approval";
     // set sender email
-    $mail->setFrom("connect@techno3gamma.in");
+    $mail->setFrom("");
     // enable html
     $mail->isHTML(true);
     //Get the uploaded file information

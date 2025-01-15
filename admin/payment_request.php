@@ -61,6 +61,7 @@ include "./process/auth.php";
                                 <tr>
                                     <th width="50"></th>
                                     <th>Customer Id</th>
+                                    <th>Transaction Id</th>
                                     <th>Name</th>
                                     <th>Requested Amount</th>
                                     <th>Role</th>
@@ -82,9 +83,10 @@ include "./process/auth.php";
                                             <td>
                                                 <div class='transaction-details'>
                                                     <p class='customer-name'>{$row['cust_id']}</p>
-                                                    <p class='transaction-date'></p>
+                                                    <p class='transaction-date'>{$row['cust_name']}</p>
                                                 </div>
                                             </td>
+                                            <td>{$row['transaction_id']}</td>
                                             <td>{$row['cust_name']}</td>
                                             <td>{$row['req_amount']}</td>
                                             <td class='role-cell' >{$row['req_amount']}</td>
@@ -97,25 +99,27 @@ include "./process/auth.php";
 
                                     echo "
                                         <tr class='expandable-row'>
-                                        <td colspan='6'>
+                                        <td colspan='7'>
                                             <div class='expanded-details'>
                                                 <div class='details-grid'>
-                                                    
-                                                    <div class='detail-item'>
-                                                        <label>Email:</label>
-                                                        <span>{$row1['cust_email']}</span>
-                                                    </div>
+
                                                     <div class='detail-item'>
                                                         <label>Phone:</label>
-                                                        <span>{$row1['cust_phone']}</span>
+                                                        <span>{$row['cust_phone']}</span>
                                                     </div>
                                                     <div class='detail-item'>
-                                                        <label>Parent Id:</label>
-                                                        <span>{$row['parent_id']}</span>
+                                                        <label>Screenshot:</label>
+                                                        <span>{$row['screenshot']}</span>
+                                                    </div>
+                                                    
+                                                    <div class='detail-item'>
+                                                        <label>Remark:</label>
+                                                        <span>{$row['remark']}</span>
                                                     </div>
 
                                                     <form action='./process/payment_req.php' method='post'>
 
+                                                    <input type='hidden' name='transaction_id' value='{$row['transaction_id']}'>
                                                     <input type='hidden' name='cust_id' value='{$row['cust_id']}'>
                                                     <input type='hidden' name='cust_name' value='{$row['cust_name']}'>
                 

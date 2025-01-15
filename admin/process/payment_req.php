@@ -11,6 +11,9 @@ if(isset($_POST['approve_req'])){
     $cust_id = $_POST['cust_id'];
     $cust_name = $_POST['cust_name'];
     $req_amt = $_POST['req_amt'];
+    $transaction_id = $_POST['transaction_id'];
+
+    echo $transaction_id;
 
 
     try {
@@ -48,9 +51,9 @@ if(isset($_POST['approve_req'])){
         $stmt2->close();
 
         // Update payment request status to processed from payment_req table
-        $sql3 = "UPDATE payment_req SET status = 'processed' WHERE cust_id = ? ";
+        $sql3 = "UPDATE payment_req SET status = 'approved' WHERE transaction_id = ? ";
         $stmt3 = $conn->prepare($sql3);
-        $stmt3->bind_param("s", $cust_id);
+        $stmt3->bind_param("s", $transaction_id);
 
         if($stmt3->execute()) {
             $_SESSION['success'] = "Payment request deleted successfully";
@@ -63,11 +66,11 @@ if(isset($_POST['approve_req'])){
         }
         $stmt3->close();
 
-        header('Location: ../new_payment_request.php');
+        header('Location: ../payment_request.php');
 
     } catch(Exception $e) {
         $_SESSION['error'] = "Error: " . $e->getMessage();
-        // header('Location: ../new_payment_request.php?msg=failed');
+        header('Location: ../payment_request.php?msg=failed');
     }
 }
 

@@ -6,6 +6,7 @@
     include 'conn.php';
 
     if (isset($_POST['login'])) {
+        echo "<script>console.log('Login Button clicked')</script>";
         $username = trim($_POST['username']); // Sanitize input
         $password = trim($_POST['password']); // Sanitize input
 
@@ -23,17 +24,23 @@
         
         // **Step 3: Execute the statement**
         $stmt->execute();
+
+        echo "<script>console.log('Debug 1')</script>";
+
         
         // **Step 4: Get the result**
         $result = $stmt->get_result();
-        
+        echo "<script>console.log('Debug 5')</script>";
+
         // **Step 5: Check if a user exists**
         if ($result->num_rows > 0) {
             $user = $result->fetch_assoc();
+            echo "<script>console.log('Debug 2')</script>";
 
             // **Step 6: Verify the password**
             if (password_verify($password, $user['password'])) {
-                
+                echo "<script>console.log('Debug 3')</script>";
+
                 // **Regenerate session ID to prevent session fixation**
                 session_regenerate_id(true);
                 

@@ -37,26 +37,26 @@
             </ul>
         </li>
 
-        <li id="payment-requests">
+        <li id="deposits">
             <a href="#" class="menu-item">
                 <i class="fas fa-money-bill"></i>
-                <span class="sidebar-text">Payment Requests</span>
+                <span class="sidebar-text">Deposits</span>
                 <i class="fas fa-chevron-down submenu-arrow"></i>
             </a>
             <ul class="submenu">
-                <li><a href="./.php"><span class="sidebar-text">New Requests</span></a></li>
-                <li><a href="./.php"><span class="sidebar-text">Processed</span></a></li>
+                <li><a href="./new_deposits.php"><span class="sidebar-text">New Deposits Requests</span></a></li>
+                <li><a href="./all_deposits.php"><span class="sidebar-text">Processed</span></a></li>
             </ul>
         </li>
-        <li id="withdrawal-requests">
+        <li id="withdrawal">
             <a href="#" class="menu-item">
                 <i class="fas fa-money-bill"></i>
                 <span class="sidebar-text">Withdrawal Requests</span>
                 <i class="fas fa-chevron-down submenu-arrow"></i>
             </a>
             <ul class="submenu">
-                <li><a href="./.php"><span class="sidebar-text">New Requests</span></a></li>
-                <li><a href="./.php"><span class="sidebar-text">Processed</span></a></li>
+                <li><a href="./new_withdrawal_requests.php"><span class="sidebar-text">New Requests</span></a></li>
+                <li><a href="./all_withdrawal.php"><span class="sidebar-text">Processed</span></a></li>
             </ul>
         </li>
         <li id="balance-sheet">

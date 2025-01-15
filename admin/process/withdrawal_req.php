@@ -11,7 +11,7 @@ if (isset($_POST['new_withdrawal'])) {
     $remark = $_POST['remark'];
 
     
-    $target_dir = "./../../uploads/new_withdrawal/";
+    $target_dir = "./../../uploads/new_withdrawal/user_bank/";
     if (!is_dir($target_dir)) {
         mkdir($target_dir, 0777, true);
         echo "Directory created!";
