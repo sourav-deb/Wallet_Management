@@ -39,6 +39,6 @@ function showRetailerSelect(role) {
 // Add class Active to sidebar menu item
 document.addEventListener('DOMContentLoaded', function (e) {
     e.preventDefault();
-    const menu_item = document.querySelector('.sidebar-menu #request_balance');
+    const menu_item = document.querySelector('.sidebar-menu #bank_transfer');
     menu_item.classList.add('active');
 });

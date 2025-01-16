@@ -62,15 +62,10 @@ document.querySelectorAll('.btn-action.edit').forEach(button => {
 });
 
 
-// Close modal functionality
-document.querySelector('.close').addEventListener('click', () => {
-    document.getElementById('editModal').style.display = 'none';
-});
-
 // Add class Active to sidebar menu item
 document.addEventListener('DOMContentLoaded', function (e) {
     e.preventDefault();
-    const menu_item = document.querySelector('.sidebar-menu #withdrawal');
+    const menu_item = document.querySelector('.sidebar-menu #bank_transfer');
     menu_item.classList.add('active');
 });
 
@@ -82,7 +77,7 @@ document.querySelector('.close-2').addEventListener('click', () => {
 // Open View Image Modal
 const modal = document.getElementById("imageModal");
 const modalImg = document.getElementById("modalImage");
-const span = document.getElementsByClassName("close")[0];
+const span = document.getElementsByClassName("close-2")[0];
 
 function openModal(imgSrc) {
     modal.style.display = "block";

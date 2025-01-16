@@ -85,6 +85,6 @@ assignedToSelect.forEach(select => {
 // Add class Active to sidebar menu item
 document.addEventListener('DOMContentLoaded', function (e) {
     e.preventDefault();
-    const menu_item = document.querySelector('.sidebar-menu #deposits');
+    const menu_item = document.querySelector('.sidebar-menu #bank_transfer');
     menu_item.classList.add('active');
 });

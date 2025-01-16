@@ -6,7 +6,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f6f9;
+    background-color: #D8DDE3;
 }
 
 .wrapper {
@@ -77,7 +77,7 @@ body {
 
 .sidebar-menu li .menu-item {
     padding: 15px 20px;
-    background: linear-gradient(to right, #318ebc, #0d567e); 
+    background: linear-gradient(to right, #2cb39f, #0d567e); 
 }
 
 .sidebar-menu li:hover {

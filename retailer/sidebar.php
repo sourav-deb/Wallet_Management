@@ -30,6 +30,8 @@
             </a>
             <ul class="submenu" type="disc">
                 <li><a href="./.php"><span class="sidebar-text">List of banks</span></a></li>
+                <li><a href="./balance_request.php"><span class="sidebar-text">Request balance</span></a></li>
+                <li><a href="./all_balance_req.php"><span class="sidebar-text">All requests list</span></a></li>
                 <li><a href="./all_deposits.php"><span class="sidebar-text">Deposit requests</span></a></li>
                 <li><a href="./new_deposits.php"><span class="sidebar-text">Pending deposit requests</span></a></li>
                 <li><a href="./all_withdrawal.php"><span class="sidebar-text">Withdrawal requests</span></a></li>

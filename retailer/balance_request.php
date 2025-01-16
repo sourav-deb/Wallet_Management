@@ -11,7 +11,7 @@ include "./process/auth.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deposit Request</title>
+    <title>Balance Request</title>
 
     <!-- Add Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -35,17 +35,19 @@ include "./process/auth.php";
                     <button class="mobile-toggle">
                         <i class="fas fa-bars"></i>
                     </button>
-                    <div class="header-text">Deposit Request</div>
+                    <div class="header-text">
+                        <a href="#">Home Page</a> / 
+                        <a href="#">Bank Transfer</a> / 
+                        <a href="#">Balance Request</a>
+                    </div>
                 </div>
 
 
                 <div class="header-right">
 
                     <div class="user-menu d-flex align-items-center ml-3 position-relative">
-                        <i class="fas fa-bell text-dark" id="notification-bell"></i>
-                        <div class="notification-box bg-white shadow-sm p-3 position-absolute" id="notification-box">
-                            <p>No new notifications</p>
-                        </div>
+                        <!-- Wallet Balance -->
+                         
                         <i class="fas fa-user text-dark ml-3"></i>
                         <span class="user-name text-dark ml-2">John Doe</span>
                     </div>
@@ -56,6 +58,7 @@ include "./process/auth.php";
             <div class="main-content">
                 <div class="filter-container">
                     <div class="filter-section">
+                        <h4 class="balance-request-title">BALANCE REQUEST</h4>
                         <div class="form-grid">
 
                             <form action="./process/balance_req.php" method="POST" class="filter-form"
@@ -97,9 +100,7 @@ include "./process/auth.php";
 
                         <!-- Apply Button -->
                         <div class="form-actions">
-                            <button type="submit" class="apply-btn" name="new_deposit">
-                                <i class="fas fa-search"></i> Save
-                            </button>
+                            <button type="submit" class="apply-btn" name="new_deposit">SAVE</button>
                         </div>
                         </form>
                     </div>
