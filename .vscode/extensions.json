@@ -1,3 +1,13 @@
 {
-    "recommendations": []
+    "recommendations": [
+        "akhail.save-typing",
+        "DEVSENSE.phptools-vscode",
+        "zobo.php-intellisense",
+        "DEVSENSE.intelli-php-vscode",
+        "bmewburn.vscode-intelephense-client",
+        "DEVSENSE.profiler-php-vscode",
+        "DEVSENSE.composer-php-vscode",
+        "ritwickdey.LiveServer",
+        "tomoki1207.pdf"
+    ]
 }
