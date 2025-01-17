@@ -60,7 +60,7 @@ $userid = $_SESSION['user_id'];
                         <table class="custom-table">
                             <thead>
                                 <tr>
-                                    <th width="50"></th>
+                                    <th width="50">More</th>
                                     <th>Transaction Id</th>
                                     <th>UTR No</th>
                                     <th>Amount</th>

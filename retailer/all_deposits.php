@@ -34,17 +34,28 @@ include "./process/auth.php";
                     <button class="mobile-toggle">
                         <i class="fas fa-bars"></i>
                     </button>
-                    <div class="header-text">All Deposits List</div>
+                    <div class="header-text">
+                        <a href="#">Home Page</a> / 
+                        <a href="#">Bank Transfer</a> / 
+                        <a href="#">Balance Request</a>
+                    </div>
                 </div>
 
 
                 <div class="header-right">
 
                     <div class="user-menu d-flex align-items-center ml-3 position-relative">
-                        <i class="fas fa-bell text-dark" id="notification-bell"></i>
-                        <div class="notification-box bg-white shadow-sm p-3 position-absolute" id="notification-box">
-                            <p>No new notifications</p>
-                        </div>
+                        <!-- Wallet Balance -->
+                        <!-- <div class="wallet-balance-container"> 
+                            <div class="wallet-balance-box">
+                                <div class="wallet-icon">
+                                    <i class="fas fa-wallet"></i>
+                                </div>
+                                <div class="wallet-info">
+                                    <span class="wallet-amount">₹ 50,000.00</span>
+                                </div>
+                            </div>
+                        </div> -->
                         <i class="fas fa-user text-dark ml-3"></i>
                         <span class="user-name text-dark ml-2">John Doe</span>
                     </div>
@@ -110,7 +121,7 @@ include "./process/auth.php";
                         <table class="custom-table">
                             <thead>
                                 <tr>
-                                    <th width="50"></th>
+                                    <th width="50">More</th>
                                     <th>Deposited By</th>
                                     <th style="display: none;">Deposited By</th>
                                     <th style="display: none;">Id</th>
@@ -311,3 +322,4 @@ include "./process/auth.php";
 </script>
 
 </html>
+

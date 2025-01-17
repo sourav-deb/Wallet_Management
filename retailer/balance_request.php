@@ -47,7 +47,16 @@ include "./process/auth.php";
 
                     <div class="user-menu d-flex align-items-center ml-3 position-relative">
                         <!-- Wallet Balance -->
-                         
+                        <div class="wallet-balance-container"> 
+                            <div class="wallet-balance-box">
+                                <div class="wallet-icon">
+                                    <i class="fas fa-wallet"></i>
+                                </div>
+                                <div class="wallet-info">
+                                    <span class="wallet-amount">₹ 50,000.00</span>
+                                </div>
+                            </div>
+                        </div>
                         <i class="fas fa-user text-dark ml-3"></i>
                         <span class="user-name text-dark ml-2">John Doe</span>
                     </div>

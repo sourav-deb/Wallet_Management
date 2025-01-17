@@ -41,10 +41,7 @@ include "./process/auth.php";
                 <div class="header-right">
 
                     <div class="user-menu d-flex align-items-center ml-3 position-relative">
-                        <i class="fas fa-bell text-dark" id="notification-bell"></i>
-                        <div class="notification-box bg-white shadow-sm p-3 position-absolute" id="notification-box">
-                            <p>No new notifications</p>
-                        </div>
+                        
                         <i class="fas fa-user text-dark ml-3"></i>
                         <span class="user-name text-dark ml-2">John Doe</span>
                     </div>

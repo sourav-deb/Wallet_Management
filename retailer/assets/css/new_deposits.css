@@ -139,13 +139,13 @@ body {
 
 /* Header Styles */
 .main-header {
-    background-color: white;
+    background-color: #d8dde3;
     height: 60px;
     padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    /* box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
 }
 
 .header-left{
@@ -154,9 +154,9 @@ body {
     font-weight: 600;
 }
 
-.header-left .header-text {
+.header-left .header-text, .header-text a {
     color: #2c3e50;
-    font-size: 1.5rem;
+    font-size: 0.9rem;
 }
 
 @media (max-width: 768px) {
@@ -682,40 +682,44 @@ ul.sidebar-menu{
 
 .table-container {
     background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* border-radius: 8px; */
+    box-shadow: 0 2px 4px #0000001a;
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
 
 .custom-table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 800px; /* Ensures horizontal scroll on smaller screens */
+    min-width: 800px;
 }
 
 .custom-table thead {
-    background-color: #f8f9fa;
+    background-color: #3b4e61;
 }
 
 .custom-table th {
     padding: 15px 20px;
     text-align: left;
-    font-weight: 600;
+    font-weight: semi-bold;
     color: #2c3e50;
-    border-bottom: 2px solid #eee;
+    /* border-bottom: 2px solid #eee; */
     white-space: nowrap;
+    color: white;
+    text-transform: uppercase;
+    border-right: 2px solid #ffffff;
 }
 
 .custom-table td {
     padding: 15px 20px;
     border-bottom: 1px solid #eee;
     color: #2c3e50;
+    border-right: 2px solid #ffffff;
+
 }
 
-.custom-table tbody tr:hover {
+/* .custom-table tbody tr:hover {
     background-color: #f8f9fa;
-}
+} */
 
 /* Transaction Details Styling */
 .transaction-details {
