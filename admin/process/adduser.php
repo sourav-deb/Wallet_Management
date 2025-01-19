@@ -23,17 +23,19 @@ if (isset($_POST['add_user'])) {
     $phone = $_POST['mobileno'];
     $address = $_POST['fulladdress'];
     $status = $_POST['status'];
+    $banks = $_POST['banks'];
+    $banks_json = json_encode($banks);
 
     date_default_timezone_set('Asia/Kolkata');
     $created_at = date(format: 'Y-m-d H:i:s');
 
     // **Step 1: Prepare the SQL statement with placeholders**
-    $stmt = $conn->prepare("INSERT INTO customer (cust_role, cust_name, commission_type, commission_value, cust_email, cust_phone, cust_address, status, created_at) 
+    $stmt = $conn->prepare("INSERT INTO customer (cust_name, commission_type, commission_value, cust_email, cust_phone, cust_address, banks, status, created_at) 
                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     // **Step 2: Bind the parameters (s = string, i = integer, d = double, b = blob)**
     // Here, all the fields are strings, so we use 'sssssssss' to indicate 9 strings
-    $stmt->bind_param('sssisisss', $role, $fullname, $comm_type, $comm_value, $email, $phone, $address, $status, $created_at);
+    $stmt->bind_param('ssisissss', $fullname, $comm_type, $comm_value, $email, $phone, $address, $banks_json, $status, $created_at);
 
     // **Step 3: Execute the statement**
     if ($stmt->execute()) {
@@ -62,6 +64,8 @@ if (isset($_POST['add_user'])) {
     // **Step 4: Close the statement and connection**
     $stmt->close();
 }
+
+
 
 function update_custid($conn)
 {
@@ -113,13 +117,13 @@ function mailtoCustomer($message, $password)
     // set port to connect smtp
     $mail->Port = "587";
     // set gmail username
-    $mail->Username = "";
+    $mail->Username = "info@play2gate.co.in";
     // set gmail password
-    $mail->Password = "";
+    $mail->Password = "4yK@ftyfJ=zf";
     // set email subect
     $mail->Subject = "Account Approval";
     // set sender email
-    $mail->setFrom("");
+    $mail->setFrom("info@play2gate.co.in");
     // enable html
     $mail->isHTML(true);
     //Get the uploaded file information

@@ -65,6 +65,8 @@ include "./process/auth.php";
                                     <th>Phone</th>
                                     <th>Role</th>
                                     <th>Status</th>
+                                    <th>Action</th>
+                                    <th style="display: none;">Id</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -73,103 +75,71 @@ include "./process/auth.php";
                                 $all_reg = mysqli_query($conn, "SELECT * FROM registration ORDER BY id DESC");
                                 while ($row = mysqli_fetch_assoc($all_reg)) {
                                     if ($row['status'] == 'Approved' || $row['status'] == 'Declined') {
+                                ?>
 
-                                        echo "
                                         <tr>
                                             <td>
                                                 <!-- <i class='fas fa-chevron-right expand-details'></i> -->
                                             </td>
                                             <td>
                                                 <div class='transaction-details'>
-                                                    <p class='customer-name'>{$row['full_name']}</p>
+                                                    <p class='customer-name'><?php echo $row['full_name'] ?></p>
                                                     <p class='transaction-date'></p>
                                                 </div>
                                             </td>
-                                            <td>{$row['email']}</td>
-                                            <td>{$row['phone']}</td>
-                                            <td class='role-cell' >{$row['role']}</td>
-                                            <td><span class='status-badge {$row['status']}'>{$row['status']}</span></td>
-                                        </tr>";
+                                            <td><?php echo $row['email'] ?></td>
+                                            <td><?php echo $row['phone'] ?></td>
+                                            <td class='role-cell'><?php echo $row['role'] ?></td>
+                                            <td><span class='status-badge <?php echo $row['status'] ?>'><?php echo $row['status'] ?></span></td>
+
+                                        </tr>
+                                    <?php
                                     } elseif ($row['status'] == 'Pending') {
                                         // echo $row['name'];
-                                        echo "
+                                    ?>
                                         <tr>
                                             <td>
                                                 <i class='fas fa-chevron-right expand-details'></i>
                                             </td>
+                                            <td><?php echo $row['full_name'] ?></td>
+                                            <td><?php echo $row['email'] ?></td>
+                                            <td><?php echo $row['phone'] ?></td>
+                                            <td class='role-cell'><?php echo $row['role'] ?></td>
+                                            <td><span class='status-badge <?php echo $row['status'] ?>'><?php echo $row['status'] ?></span></td>
                                             <td>
-                                                <div class='transaction-details'>
-                                                    <p class='customer-name'>{$row['full_name']}</p>
-                                                    <p class='transaction-date'></p>
+                                                <button class="btn-action edit" title="Edit User">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </td>
+                                            <td style="display: none;">
+                                                <?php echo $row['id'] ?>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr class='expandable-row'>
+                                            <td colspan='7'>
+                                                <div class='expanded-details'>
+                                                    <div class='details-grid'>
+                                                        <div class='detail-item'>
+                                                            <label>Name:</label>
+                                                            <span><?php echo $row['full_name'] ?></span>
+                                                        </div>
+                                                        <div class='detail-item'>
+                                                            <label>Email:</label>
+                                                            <span><?php echo $row['email'] ?></span>
+                                                        </div>
+
+                                                        <div class='detail-item'>
+                                                            <label>Phone:</label>
+                                                            <span><?php echo $row['phone'] ?></span>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
                                             </td>
-                                            <td>{$row['email']}</td>
-                                            <td>{$row['phone']}</td>
-                                            <td class='role-cell' >{$row['role']}</td>
-                                            <td><span class='status-badge {$row['status']}'>{$row['status']}</span></td>
-                                        </tr>";
-
-                                        echo "
-                                        <tr class='expandable-row'>
-                                        <td colspan='6'>
-                                            <div class='expanded-details'>
-                                                <div class='details-grid'>
-                                                    <div class='detail-item'>
-                                                        <label>Name:</label>
-                                                        <span>{$row['full_name']}</span>
-                                                    </div>
-                                                    <div class='detail-item'>
-                                                        <label>Email:</label>
-                                                        <span>{$row['email']}</span>
-                                                    </div>
-                                                    <div class='detail-item'>
-                                                        <label>Phone:</label>
-                                                        <span>{$row['phone']}</span>
-                                                    </div>
-
-                                                    <form action='./process/assign_role.php' method='post'>
-
-                                                    <input type='hidden' name='id' value='{$row['id']}'>
-                                                    <input type='hidden' name='full_name' value='{$row['full_name']}'>
-                                                    <input type='hidden' name='email' value='{$row['email']}'>
-                                                    <input type='hidden' name='phone' value='{$row['phone']}'>
-                                                    <input type='hidden' name='created_at' value='{$row['created_at']}'>
-
-                                                    <div class='detail-item'>
-                                                        <label>Assigned To:</label>
-                                                        <input type='text' name='assigned_to' value='Retailer' readonly>
-                                                        <!-- <select name='assigned_to' id='assigned_to' required>
-                                                            <option selected disabled>Select role</option>
-                                                            <option value='retailer'>Retailer</option>
-                                                            <option value='user'>User</option>
-                                                        </select> -->
-                                                    </div>
-
-
-                                                    <div class='detail-item'>
-                                                        <label>Commission Type:</label>
-                                                        <select name='commission_type' id='commission_type' required>
-                                                            <option selected disabled>Select commission type</option>
-                                                            <option value='fixed'>Fixed</option>
-                                                            <option value='percentage'>Percentage</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div class='detail-item'>
-                                                        <label>Commission Value:</label>
-                                                        <input type='number' name='commission_value' id='commission_value'>
-                                                    </div>
-
-                                                    <div class='detail-item'>
-                                                        <button type='submit' name='assign_role'>Assign Role</button>
-                                                        <button type='submit' name='declined' class='declined-btn'>Declined</button>
-                                                    </div>
-                                               </form>
-
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>";
+                                        </tr>
+                                <?php
                                     }
                                 }
                                 ?>
@@ -179,6 +149,106 @@ include "./process/auth.php";
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Edit Modal -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit User Details</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="editForm" action="./process/assign_role.php" method="POST">
+                    <input type="hidden" id="id" name="id">
+                    <div class="modal-grid">
+
+                        <!-- Full Name -->
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" name="full_name" id="full_name" required readonly>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" id="email" required readonly>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="phone" name="phone" id="phone" required readonly>
+                        </div>
+
+                        <!-- Comm Type -->
+                        <div class="form-group">
+                            <label>Comm Type</label>
+                            <select name="commission_type" id="commission_type" required>
+                                <option selected disabled>Select Comm Type</option>
+                                <option value="fixed">Fixed</option>
+                                <option value="percentage">Percentage</option>
+                            </select>
+                        </div>
+
+                        <!-- Comm Value -->
+                        <div class="form-group">
+                            <label>Comm Type</label>
+                            <input type="text" name="commission_value" id="commission_value" placeholder="Enter Comm Value" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="edit_status" name="edit_status" required>
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                                <option value="Suspended">Suspended</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="payment-methods">
+                        <label>Payment Methods</label>
+                        <div class="checkbox-wrapper">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="gpay" name="payment_methods[]" value="gpay">
+                                <label for="gpay">GPay</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="phonepe" name="payment_methods[]" value="phonepe">
+                                <label for="phonepe">PhonePe</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="crypto" name="payment_methods[]" value="crypto">
+                                <label for="crypto">Crypto</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="crypto" name="payment_methods[]" value="crypto">
+                                <label for="crypto">Crypto</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="crypto" name="payment_methods[]" value="crypto">
+                                <label for="crypto">Crypto</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="crypto" name="payment_methods[]" value="crypto">
+                                <label for="crypto">Crypto</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="crypto" name="payment_methods[]" value="crypto">
+                                <label for="crypto">Crypto</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='detail-item'>
+                        <button type='submit' name='assign_role'>Assign Role</button>
+                        <button type='submit' name='declined' class='declined-btn'>Declined</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -35,29 +35,31 @@ include "./process/auth.php";
                         <i class="fas fa-bars"></i>
                     </button>
                     <div class="header-text">
-                        <a href="#">Home Page</a> / 
-                        <a href="#">Bank Transfer</a> / 
-                        <a href="#">Balance Request</a>
+                        <a href="#">Home Page</a> /
+                        <a href="#">Bank Transfer</a> /
+                        <a href="#">Deposit Requests</a>
                     </div>
                 </div>
 
 
                 <div class="header-right">
 
+                    <?php
+                    include '../process/conn.php';
+                    include '../auth.php';
+                    $user_id = $_SESSION['user_id'];
+                    // echo $user_id;
+
+                    $sql = "SELECT cust_name FROM customer WHERE cust_id = '$user_id'";
+                    $result = mysqli_query($conn, $sql);
+                    $row = mysqli_fetch_assoc($result);
+                    $cust_name = $row['cust_name'];
+
+                    ?>
+
                     <div class="user-menu d-flex align-items-center ml-3 position-relative">
-                        <!-- Wallet Balance -->
-                        <!-- <div class="wallet-balance-container"> 
-                            <div class="wallet-balance-box">
-                                <div class="wallet-icon">
-                                    <i class="fas fa-wallet"></i>
-                                </div>
-                                <div class="wallet-info">
-                                    <span class="wallet-amount">₹ 50,000.00</span>
-                                </div>
-                            </div>
-                        </div> -->
                         <i class="fas fa-user text-dark ml-3"></i>
-                        <span class="user-name text-dark ml-2">John Doe</span>
+                        <span class="user-name text-dark ml-2"><?php echo $cust_name; ?></span>
                     </div>
                 </div>
             </header>
@@ -69,7 +71,7 @@ include "./process/auth.php";
                         <div class="form-grid">
 
                             <form action="./process/all_deposits.php" method="POST" class="filter-form">
-                                
+
 
                                 <!-- Transaction Id -->
                                 <div class="form-group">
@@ -121,19 +123,16 @@ include "./process/auth.php";
                         <table class="custom-table">
                             <thead>
                                 <tr>
-                                    <th width="50">More</th>
-                                    <th>Deposited By</th>
+                                    <th>Transaction Id</th>
                                     <th style="display: none;">Deposited By</th>
                                     <th style="display: none;">Id</th>
                                     <th style="display: none;">Phone</th>
                                     <th style="display: none;">Deposited To</th>
-                                    <th>Transaction ID</th>
-                                    <th>UTR No</th>
-                                    <th>Mobile</th>
+                                    <th>Deposited By</th>
                                     <th>Amount</th>
-                                    <th>Request Date</th>
                                     <th>Status</th>
-                                    <th>Actions</th>
+                                    <th>Request Date</th>
+                                    <th>User Info</th>
                                 </tr>
                             </thead>
                             <!-- <tbody> -->
@@ -141,90 +140,41 @@ include "./process/auth.php";
                                 <?php
                                 if (isset($_SESSION['search_results']) && !empty($_SESSION['search_results'])) {
                                     foreach ($_SESSION['search_results'] as $row) {
-                                        ?>
+                                ?>
                                         <tr data-user-type="<?php echo $row['user_type']; ?>">
-                                            <td>
-                                                <i class="fas fa-chevron-right expand-details"></i>
-                                            </td>
-                                            <td>
-                                                <div class="user-details">
-                                                    <p class="customer-name"><?php echo $row['deposited_by']; ?></p>
-                                                    <!-- <p class="user-id">Deposited By: <?php echo $row['deposited_by']; ?></p> -->
-                                                </div>
-                                            </td>
+                                            
+                                            <td><?php echo $row['transaction_id']; ?></td>
                                             <td style="display: none;"><?php echo $row['deposited_by']; ?></td>
                                             <td style="display: none;"><?php echo $row['id']; ?></td>
                                             <td style="display: none;"><?php echo $row['mobileno']; ?></td>
                                             <td style="display: none;"><?php echo $row['deposited_to']; ?></td>
-                                            <td><?php echo $row['transaction_id']; ?></td>
-                                            <td><?php echo $row['utr_no']; ?></td>
-                                            <td><?php echo $row['mobileno']; ?></td>
+                                            <td><?php echo $row['deposited_by']; ?></td>
                                             <td><?php echo $row['amount']; ?></td>
-                                            <td><?php echo $row['created_at']; ?></td>
+
                                             <td><span
                                                     class="status-badge <?php echo strtolower($row['status']); ?>"><?php echo $row['status']; ?></span>
                                             </td>
+                                            <td><?php echo $row['created_at']; ?></td>
                                             <td>
-                                                <?php if($row['status'] == 'approved'): ?>
-                                                    <button class="btn-action edit" title="Edit User">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                <?php endif; ?>
-                 
-                                            </td>
-                                        </tr>
-                                        <tr class="expandable-row">
-                                            <td colspan="10">
-                                                <div class="expanded-details">
-                                                    <div class="details-grid">
-                                                        <div class="detail-item">
-                                                            <label>Deposited By:</label>
-                                                            <span><?php echo $row['deposited_by']; ?></span>
-                                                        </div>
-                                                        <div class="detail-item">
-                                                            <label>Deposited To:</label>
-                                                            <span><?php echo $row['deposited_to']; ?></span>
-                                                        </div>
-
-                                                        <div class="detail-item">
-                                                            <label>Email:</label>
-                                                            <span><?php echo $row['email']; ?></span>
-                                                        </div>
-
-                                                        <div class="detail-item">
-                                                            <label>Mobile:</label>
-                                                            <span><?php echo $row['mobileno']; ?></span>
-                                                        </div>
-                                                        <div class="detail-item">
-                                                            <label>Amount:</label>
-                                                            <span>INR <?php echo $row['amount']; ?></span>
-                                                        </div>
-                                                        <div class="detail-item">
-                                                            <label>Status:</label>
-                                                            <span><?php echo $row['status']; ?></span>
-                                                        </div>
-                                                        <div class="detail-item">
-                                                            <label>Requested Date:</label>
-                                                            <span><?php echo $row['created_at']; ?></span>
-                                                        </div>
-
-                                                        <!-- Show screenshot -->
-                                                        <div class="detail-item">
-                                                            <label>Screenshot:</label>
-
-                                                            <button
-                                                                onclick="openModal('./../uploads/new_deposits/<?php echo $row['screenshot']; ?>');"
-                                                                class="view-btn"> View Screenshot
-                                                            </button>
-                                                            <!-- <img src="./../uploads/new_deposits/<?php echo $row['screenshot']; ?>" alt='Screenshot'> -->
-
-                                                        </div>
-
-                                                    </div>
+                                                <div class="user-details">
+                                                    <p class="customer-name"><b>transaction_id:</b> <?php echo $row['transaction_id']; ?>
+                                                        <i class="fas fa-copy copy-icon" onclick="copyToClipboard('<?php echo $row['transaction_id']; ?>')" title="Copy Transaction ID"></i>
+                                                    </p>
+                                                    <p class="customer-name"><b>utr_no:</b> <?php echo $row['utr_no']; ?>
+                                                        <i class="fas fa-copy copy-icon" onclick="copyToClipboard('<?php echo $row['utr_no']; ?>')" title="Copy UTR No"></i>
+                                                    </p>
+                                                    <p class="customer-name"><b>mobile_no:</b> <?php echo $row['mobileno']; ?>
+                                                        <i class="fas fa-copy copy-icon" onclick="copyToClipboard('<?php echo $row['mobileno']; ?>')" title="Copy UTR No"></i>
+                                                    </p>
+                                                    <p class="customer-name"><b>screenshot:</b> 
+                                                        <a href="./../uploads/new_deposits/<?php echo $row['screenshot'];?>" target="_blank">View Screenshot</a>
+                                                        <i class="fas fa-copy copy-icon" onclick="copyToClipboard('<?php echo $row['mobileno']; ?>')" title="Copy Mobile No"></i>
+                                                    </p>
                                                 </div>
                                             </td>
+
                                         </tr>
-                                        <?php
+                                <?php
                                     }
                                     unset($_SESSION['search_results']);
                                 }
@@ -259,7 +209,7 @@ include "./process/auth.php";
                 <form id="editForm" action="./process/all_deposit_search.php" method="POST">
                     <input type="hidden" id="edit_id" name="id">
                     <div class="modal-grid">
-                        
+
                         <div class="form-group">
                             <label>Deposited By</label>
                             <input type="text" id="deposited_by" name="deposited_by" required readonly>
@@ -322,4 +272,3 @@ include "./process/auth.php";
 </script>
 
 </html>
-

@@ -34,19 +34,32 @@ $userid = $_SESSION['user_id'];
                     <button class="mobile-toggle">
                         <i class="fas fa-bars"></i>
                     </button>
-                    <div class="header-text">New Withdrawal</div>
+                    <div class="header-text">
+                        <a href="#">Home Page</a> / 
+                        <a href="#">Bank Transfer</a> / 
+                        <a href="#">Pending Withdrawal</a>
+                    </div>
                 </div>
 
 
                 <div class="header-right">
 
+                    <?php
+                    include '../process/conn.php';
+                    include '../auth.php';
+                    $user_id = $_SESSION['user_id'];
+                    // echo $user_id;
+
+                    $sql = "SELECT cust_name FROM customer WHERE cust_id = '$user_id'";
+                    $result = mysqli_query($conn, $sql);
+                    $row = mysqli_fetch_assoc($result);
+                    $cust_name = $row['cust_name'];
+
+                    ?>
+
                     <div class="user-menu d-flex align-items-center ml-3 position-relative">
-                        <i class="fas fa-bell text-dark" id="notification-bell"></i>
-                        <div class="notification-box bg-white shadow-sm p-3 position-absolute" id="notification-box">
-                            <p>No new notifications</p>
-                        </div>
                         <i class="fas fa-user text-dark ml-3"></i>
-                        <span class="user-name text-dark ml-2">John Doe</span>
+                        <span class="user-name text-dark ml-2"><?php echo $cust_name; ?></span>
                     </div>
                 </div>
             </header>
@@ -61,12 +74,12 @@ $userid = $_SESSION['user_id'];
                             <thead>
                                 <tr>
                                     <th style="display:none;"></th>
-                                    <th width="50"></th>
                                     <th>Account No</th>
                                     <th>Account Holder</th>
                                     <th>Amount</th>
                                     <th>Requested At</th>
                                     <th>Status</th>
+                                    <th>User Info</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -77,12 +90,10 @@ $userid = $_SESSION['user_id'];
                                 while ($row = mysqli_fetch_assoc($all_reg)) {
                                     if ($row['status'] == 'pending') {
 
-                                       ?>
+                                ?>
                                         <tr>
                                             <td style="display:none;"><?php echo $row['id'] ?> </td>
-                                            <td>
-                                                <i class="fas fa-chevron-right expand-details"></i> 
-                                            </td>
+                          
                                             <td>
                                                 <div class="transaction-details">
                                                     <p class="customer-name"><?php echo $row['account_no'] ?></p>
@@ -91,41 +102,52 @@ $userid = $_SESSION['user_id'];
                                             </td>
                                             <td><?php echo $row['user_name'] ?></td>
                                             <td><?php echo $row['amount'] ?></td>
-                                            <td class="role-cell" ><?php echo $row['created_at'] ?></td>
-                                            <td><span class="status-badge <?php echo $row['amount'] ?>"><?php echo $row['status'] ?></span></td>
+                                            <td class="role-cell"><?php echo $row['created_at'] ?></td>
+                                            <td><span class="status-badge <?php echo $row['status'] ?>"><?php echo $row['status'] ?></span></td>
+                                            <td>
+                                                <p class="customer-name"><b>account_no:</b> <?php echo $row['account_no']; ?>
+                                                    <i class="fas fa-copy copy-icon" onclick="copyToClipboard('<?php echo $row['account_no']; ?>')" title="Copy UTR No"></i>
+                                                </p>
+                                                <p class="customer-name"><b>mobile:</b> <?php echo $row['mobile']; ?>
+                                                    <i class="fas fa-copy copy-icon" onclick="copyToClipboard('<?php echo $row['mobile']; ?>')" title="Copy UTR No"></i>
+                                                </p>
+                                                <p class="customer-name"><b>Screenshot:</b>
+                                                    <a href="./../uploads/new_withdrawal/user_bank/<?php echo $row['screenshot']; ?>" target="_blank">View Screenshot</a>
+                                                </p>
+                                            </td>
                                             <td>
                                                 <button class='btn-action edit' title='Edit User'>
                                                     <i class='fas fa-edit'></i>
                                                 </button>
-           
+
                                             </td>
                                         </tr>
 
-                                        
+
                                         <tr class="expandable-row">
-                                        <td colspan='8'>
-                                            <div class='expanded-details'>
-                                                <div class='details-grid'>
-                                                    <div class='detail-item'>
-                                                        <label>Requested To:</label>
-                                                        <span><?php echo $row['transfer_by'] ?></span>
-                                                    </div>
-                                                    <div class='detail-item'>
-                                                        <label>Mobile:</label>
-                                                        <span><?php echo $row['mobile'] ?></span>
-                                                    </div>
-                                                    <div class='detail-item'>
-                                                        <label>Screenshot:</label>
-                                                        <span><?php echo $row['screenshot'] ?></span>
-                                                    </div>
+                                            <td colspan='8'>
+                                                <div class='expanded-details'>
+                                                    <div class='details-grid'>
+                                                        <div class='detail-item'>
+                                                            <label>Requested To:</label>
+                                                            <span><?php echo $row['transfer_by'] ?></span>
+                                                        </div>
+                                                        <div class='detail-item'>
+                                                            <label>Mobile:</label>
+                                                            <span><?php echo $row['mobile'] ?></span>
+                                                        </div>
+                                                        <div class='detail-item'>
+                                                            <label>Screenshot:</label>
+                                                            <span><?php echo $row['screenshot'] ?></span>
+                                                        </div>
 
-                                                
 
+
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    
+                                            </td>
+                                        </tr>
+
 
                             </tbody>
                         </table>
@@ -164,24 +186,24 @@ $userid = $_SESSION['user_id'];
 
                         <div class="form-group">
                             <label>Screenshot</label>
-                            <input type="file" id="screenshot" name="screenshot" required  >
+                            <input type="file" id="screenshot" name="screenshot" required>
                         </div>
-                        
+
                     </div>
 
-                    <button type="submit" class="btn-save" name="received">Transfered</button>
+                    <button type="submit" class="btn-save" name="received">TRANSFERED</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <?php
-        }
-    }
-    ?>
+<?php
+                                    }
+                                }
+?>
 
-    <script src="./../template/template.js"></script>
-    <script src="./assets/js/new_withdrawal_req.js"></script>
+<script src="./../template/template.js"></script>
+<script src="./assets/js/new_withdrawal_req.js"></script>
 </body>
 
 </html>

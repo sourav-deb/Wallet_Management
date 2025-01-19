@@ -88,3 +88,35 @@ document.addEventListener('DOMContentLoaded', function (e) {
     const menu_item = document.querySelector('.sidebar-menu #user-management');
     menu_item.classList.add('active');
 });
+
+// Open Modal
+document.querySelectorAll('.btn-action.edit').forEach(button => {
+    button.addEventListener('click', function() {
+        const row = this.closest('tr');
+        const data = {
+            id: row.querySelector('td:nth-child(8)').textContent,
+            name: row.querySelector('td:nth-child(2)').textContent,
+            email: row.querySelector('td:nth-child(3)').textContent,
+            phone: row.querySelector('td:nth-child(4)').textContent,
+            // user_type: row.dataset.userType
+        };
+
+        console.table(data);
+        
+        // Prefill modal fields with complete data
+        document.getElementById('id').value = data.id;
+        document.getElementById('full_name').value = data.name;
+        document.getElementById('email').value = data.email;
+        document.getElementById('phone').value = data.phone;
+        // document.getElementById('edit_status').value = data.status;
+
+        // Show modal
+        document.getElementById('editModal').style.display = 'block';
+    });
+});
+
+
+// Close modal functionality
+document.querySelector('.close').addEventListener('click', () => {
+    document.getElementById('editModal').style.display = 'none';
+});

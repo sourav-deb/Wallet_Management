@@ -54,20 +54,13 @@ include "./process/auth.php";
 
             <!-- Main Content -->
             <div class="main-content">
-                <div class="filter-container">
-                    <div class="filter-section">
-                        <div class="form-grid">
+                <form action="./process/adduser.php" method="POST" class="filter-form">
+                    <div class="filter-container">
 
-                            <form action="./process/adduser.php" method="POST" class="filter-form">
-                                <!-- Parent -->
-                                <!-- <div class="form-group">
-                                    <label for="parent">Parent</label>
-                                    <select name="parent" id="parent">
-                                        <option selected disabled>Select Parent</option>
-                                        <option value="admin">Admin</option>
-                                        <option value="retailer">Retailer</option>
-                                    </select>
-                                </div> -->
+                        <div class="filter-section filter-section-1">
+                            <div class="form-grid">
+
+                                <!-- <form action="./process/adduser.php" method="POST" class="filter-form"> -->
 
                                 <!-- Role -->
                                 <div class="form-group">
@@ -79,21 +72,6 @@ include "./process/auth.php";
                                         <option value="user">User</option>
                                     </select> -->
                                 </div>
-
-                                <!-- Retailer Selection (Initially Hidden) -->
-                                <!-- <div class="form-group" id="retailerSelect" style="display:none;">
-                                    <label for="parent_retailer">Select Retailer</label>
-                                    <select name="parent_retailer" id="parent_retailer">
-                                        <option selected disabled>Select Retailer</option>
-                                        <?php
-                                        $retailerQuery = "SELECT id, cust_name FROM customer WHERE status='Active'";
-                                        $retailers = mysqli_query($conn, $retailerQuery);
-                                        while ($retailer = mysqli_fetch_assoc($retailers)) {
-                                            echo "<option value='" . $retailer['id'] . "'>" . $retailer['cust_name'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div> -->
 
                                 <!-- Full Name -->
                                 <div class="form-group">
@@ -145,99 +123,73 @@ include "./process/auth.php";
                                     </select>
                                 </div>
 
-                        </div>
-
-                        <!-- Apply Button -->
-                        <div class="form-actions">
-                            <button type="submit" class="apply-btn" name="add_user">
-                                <i class="fas fa-search"></i> Save
-                            </button>
-                        </div>
-                        </form>
-                    </div>
-                </div>
+                            </div>
 
 
 
-            </div>
-        </div>
-    </div>
-
-    <!-- Edit Modal -->
-    <div class="modal" id="editModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Edit User Details</h3>
-                <span class="close">&times;</span>
-            </div>
-            <div class="modal-body">
-                <form id="editForm" action="./process/edit_customer.php" method="POST">
-                    <input type="hidden" id="edit_id" name="id">
-                    <input type="hidden" id="edit_user_type" name="user_type">
-                    <div class="modal-grid">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" id="edit_name" name="edit_name" required>
+                            <!-- Apply Button -->
+                            <!-- <div class="form-actions">
+                                <button type="submit" class="apply-btn" name="add_user">
+                                    <i class="fas fa-search"></i> Save
+                                </button>
+                            </div> -->
+                            <!-- </form> -->
                         </div>
 
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" id="edit_email" name="edit_email" required>
+                        <div class="filter-section filter-section-2">
+                            <div class="form-grid">
+
+                                <!-- <form action="./process/adduser.php" method="POST" class="filter-form"> -->
+
+                                <!-- List of all Available banks in checkbox -->
+                                <div class="form-group bank-options">
+                                    <label for="banks">Available Banks</label>
+                                    <div class="bank-checkbox-wrapper">
+                                        <div class="bank-checkbox-item">
+                                            <input type="checkbox" name="banks[]" id="hdfc" value="HDFC">
+                                            <label for="hdfc">HDFC</label>
+                                        </div>
+                                        <div class="bank-checkbox-item">
+                                            <input type="checkbox" name="banks[]" id="icici" value="ICICI">
+                                            <label for="icici">ICICI</label>
+                                        </div>
+                                        <div class="bank-checkbox-item">
+                                            <input type="checkbox" name="banks[]" id="sbi" value="SBI">
+                                            <label for="sbi">SBI</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Apply Button -->
+                            <!-- <div class="form-actions">
+                                <button type="submit" class="apply-btn" name="add_user">
+                                    <i class="fas fa-search"></i> Save
+                                </button>
+                            </div> -->
+
                         </div>
 
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input type="text" id="edit_phone" name="edit_phone" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Parent</label>
-                            <select name="edit_parent" id="edit_parent">
-                                <option selected disabled>Select Parent</option>
-                                <option value="admin">Admin</option>
-                                <option value="retailer">Retailer</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Role</label>
-                            <select name="edit_role" id="edit_role">
-                                <option selected disabled>Select Role</option>
-                                <option value="retailer">Retailer</option>
-                                <option value="user">User</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Comm Type</label>
-                            <select name="edit_comm_type" id="edit_comm_type">
-                                <option selected disabled>Select Comm Type</option>
-                                <option value="fixed">Fixed</option>
-                                <option value="percentage">Percentage</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Comm Value</label>
-                            <input type="text" id="edit_comm_value" name="edit_comm_value" required>
-                        </div>
 
-                        <div class="form-group">
-                            <label>Wallet Balance</label>
-                            <input type="number" id="edit_wallet" name="edit_wallet" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Status</label>
-                            <select id="edit_status" name="edit_status" required>
-                                <option value="Active">Active</option>
-                                <option value="Inactive">Inactive</option>
-                                <option value="Suspended">Suspended</option>
-                            </select>
-                        </div>
                     </div>
 
-                    <button type="submit" class="btn-save" name="edit_customer">Save Changes</button>
+                    <div class="form-actions">
+                        <button type="submit" class="apply-btn" name="add_user">
+                            SAVE
+                        </button>
+                    </div>
                 </form>
+
+
+
+
+
+
             </div>
         </div>
     </div>
+
+
 
 
     <script src="./../template/template.js"></script>

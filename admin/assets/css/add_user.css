@@ -534,6 +534,34 @@ ul.sidebar-menu{
 
 
 /* Filter Section Styles */
+
+.filter-container {
+    display: flex;
+    gap: 20px;
+}
+
+@media screen and (min-width: 1024px) {
+    .filter-container{
+        align-items: stretch; 
+    }
+    .filter-section-1{
+        display: inline-block;
+        /* width: 70%; */
+        flex: 0 0 70%;
+    }
+
+    .filter-section-2{
+        display: inline-block;
+        /* width: 25%; */
+        flex: 0 0 29%;
+    }
+
+}
+
+
+
+
+/* Container for filter sections */
 .filter-section {
     background-color: white;
     padding: 20px;
@@ -600,6 +628,67 @@ ul.sidebar-menu{
     padding-right: 32px;
 }
 
+/* Bank Checkbox Container */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Main Label */
+.form-group > label {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Checkbox Container */
+.bank-checkbox-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-left: 10px;
+}
+
+/* Individual Checkbox Item */
+.bank-checkbox-item {
+    display: flex;
+    align-items: center;  /* Vertical alignment */
+    gap: 10px;
+    height: 24px;        /* Fixed height for consistency */
+    margin: 0;           /* Remove any default margins */
+    padding: 0;          /* Remove any default padding */
+}
+
+/* Checkbox Input */
+.bank-checkbox-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin: 0;           /* Remove default margins */
+    accent-color: #277EAB;
+    cursor: pointer;
+    vertical-align: middle; /* Align vertically */
+    position: relative;
+    top: 0;              /* Ensure no top offset */
+}
+
+/* Checkbox Label */
+.bank-checkbox-item label {
+    font-size: 14px;
+    color: #4a4a4a;
+    cursor: pointer;
+    margin: 0;           /* Remove default margins */
+    padding: 0;          /* Remove default padding */
+    line-height: 16px;   /* Match height of checkbox */
+    display: flex;
+    align-items: center; /* Center text vertically */
+}
+
+/* Hover effect */
+.bank-checkbox-item:hover label {
+    color: #277EAB;
+}
+
 /* Apply Button Styles */
 .form-actions {
     display: flex;
@@ -615,9 +704,12 @@ ul.sidebar-menu{
     cursor: pointer;
     font-size: 14px;
     display: flex;
-    align-items: center;
+    align-items: center;     /* Vertical center */
+    justify-content: center; /* Horizontal center */
     gap: 8px;
     transition: background-color 0.3s ease;
+    width: 70%;
+    font-weight: 600;
 }
 
 .apply-btn:hover {

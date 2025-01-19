@@ -38,27 +38,29 @@ include "./process/auth.php";
                     <div class="header-text">
                         <a href="#">Home Page</a> / 
                         <a href="#">Bank Transfer</a> / 
-                        <a href="#">Balance Request</a>
+                        <a href="#">Request Balance</a>
                     </div>
                 </div>
 
 
                 <div class="header-right">
 
+                    <?php
+                    include '../process/conn.php';
+                    include '../auth.php';
+                    $user_id = $_SESSION['user_id'];
+                    // echo $user_id;
+
+                    $sql = "SELECT cust_name FROM customer WHERE cust_id = '$user_id'";
+                    $result = mysqli_query($conn, $sql);
+                    $row = mysqli_fetch_assoc($result);
+                    $cust_name = $row['cust_name'];
+
+                    ?>
+
                     <div class="user-menu d-flex align-items-center ml-3 position-relative">
-                        <!-- Wallet Balance -->
-                        <div class="wallet-balance-container"> 
-                            <div class="wallet-balance-box">
-                                <div class="wallet-icon">
-                                    <i class="fas fa-wallet"></i>
-                                </div>
-                                <div class="wallet-info">
-                                    <span class="wallet-amount">₹ 50,000.00</span>
-                                </div>
-                            </div>
-                        </div>
                         <i class="fas fa-user text-dark ml-3"></i>
-                        <span class="user-name text-dark ml-2">John Doe</span>
+                        <span class="user-name text-dark ml-2"><?php echo $cust_name; ?></span>
                     </div>
                 </div>
             </header>

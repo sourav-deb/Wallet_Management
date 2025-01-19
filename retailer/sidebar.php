@@ -1,3 +1,16 @@
+<?php
+include '../process/conn.php';
+include '../auth.php';
+$user_id = $_SESSION['user_id'];
+// echo $user_id;
+
+$sql = "SELECT balance FROM customer WHERE cust_id = '$user_id'";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+$balance = $row['balance'];
+
+?>
+
 <nav class="sidebar">
     <!-- <div class="sidebar-toggle">
                 <i class="fas fa-chevron-left"></i>
@@ -18,9 +31,21 @@
         </button>
     </div>
 
+    <!-- Wallet Balance -->
+    <div class="wallet-balance-container">
+        <div class="wallet-balance-box">
+            <div class="wallet-icon">
+                <i class="fas fa-wallet"></i>
+            </div>
+            <div class="wallet-info">
+                <span class="wallet-amount">₹ <?php echo $balance; ?></span>
+            </div>
+        </div>
+    </div>
+
     <ul class="sidebar-menu">
 
-    <!-- here create a triangle just below the bank transfer and above the straight line-->
+        <!-- here create a triangle just below the bank transfer and above the straight line-->
 
         <li id="bank_transfer">
             <a href="dashboard.php" class="menu-item">
@@ -29,7 +54,7 @@
                 <i class="fas fa-chevron-down submenu-arrow"></i>
             </a>
             <ul class="submenu" type="disc">
-                <li><a href="./.php"><span class="sidebar-text">List of banks</span></a></li>
+                <li><a href="./list_banks.php"><span class="sidebar-text">List of banks</span></a></li>
                 <li><a href="./balance_request.php"><span class="sidebar-text">Request balance</span></a></li>
                 <li><a href="./all_balance_req.php"><span class="sidebar-text">All requests list</span></a></li>
                 <li><a href="./all_deposits.php"><span class="sidebar-text">Deposit requests</span></a></li>

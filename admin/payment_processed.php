@@ -79,15 +79,10 @@ include "./process/auth.php";
                                             <td>
                                                 <!-- <i class='fas fa-chevron-right expand-details'></i> -->
                                             </td>
-                                            <td>
-                                                <div class='transaction-details'>
-                                                    <p class='customer-name'>{$row['cust_id']}</p>
-                                                    <p class='transaction-date'></p>
-                                                </div>
-                                            </td>
+                                            <td>{$row['cust_id']}</td>
                                             <td>{$row['cust_name']}</td>
                                             <td>{$row['amount']}</td>
-                                            <td class='role-cell' >{$row['req_amount']}</td>
+                                            <td class='role-cell' >{$row['created_at']}</td>
                                             <td><span class='status-badge {$row['status']}'>{$row['status']}</span></td>
                                         </tr>";
                                 }

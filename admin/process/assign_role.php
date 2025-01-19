@@ -18,53 +18,55 @@ include '../../auth.php';
 
 if (isset($_POST['assign_role'])) {
     $id = $_POST['id'];
-    $role = $_POST['assigned_to'] ?? '';
+    $role = 'Retailer';
     // $retailer = $_POST['retailer'] ?? '';
     $full_name = $_POST['full_name'] ?? '';
     $email = $_POST['email'] ?? '';
     $phone = $_POST['phone'] ?? '';
     $commission_type = $_POST['commission_type'] ?? '';
     $commission_value = $_POST['commission_value'] ?? '';
+    $payment_methods = $_POST['payment_methods'] ?? '';
+    $payment_methods_json = json_encode($payment_methods);
+
 
     // echo $id . " " . $role . " " . $retailer;
 
     date_default_timezone_set('Asia/Kolkata');
     $created_at = date(format: 'Y-m-d H:i:s');
 
-    if (empty($id) || empty($role)) {
+    if (empty($id || empty($role))) {
         echo "Please fill all the fields";
         echo "<script>window.location.href = '../pending.php?error=missing_fields';</script>";
         exit;
     }
 
-   if ($role == 'retailer' || $role == 'Retailer') {
-        echo "Retailer selected";
-        // Update
+    //    if ($role == 'retailer' || $role == 'Retailer') {
+    echo "Retailer selected";
+    // Update
 
-        $query = "UPDATE registration SET status = 'Approved', role = '$role' WHERE id = '$id'";
-        mysqli_query($conn, $query);
+    $query = "UPDATE registration SET status = 'Approved' WHERE id = '$id'";
+    mysqli_query($conn, $query);
 
-        // Get the total count of rows in the 'profile' table
-        $query3 = "SELECT COUNT(*) as total_rows FROM profile WHERE user_id = '$id'";
-        $result = mysqli_query($conn, $query3);
-        $row = mysqli_fetch_assoc($result);
-        $total_rows = $row['total_rows'];
-        $total_rows++;  // Increment the total rows by 1
-        $id = $total_rows;
-        
+    // Get the total count of rows in the 'profile' table
+    $query3 = "SELECT COUNT(*) as total_rows FROM profile";
+    $result = mysqli_query($conn, $query3);
+    $row = mysqli_fetch_assoc($result);
+    $total_rows = $row['total_rows'];
+    $total_rows++;  // Increment the total rows by 1
+    $id = $total_rows;
 
-        $password = generatePassword();
-        mailtoCustomer('Your account has been approved and you are now a user of our system. You can now login to your account and start using our services.',  $password);
 
-        addProfile($conn, $id, $full_name, $role, $email, $phone, 'admin', $retailer, $retailer, $commission_type, $commission_value, 'Active', $created_at, $password);
-        addCustomer($conn, $id, $full_name, $role, $email, $phone, 'admin', $retailer, $retailer, $commission_type, $commission_value, 'Active', $created_at);
+    $password = generatePassword();
+    mailtoCustomer('Your account has been approved and you are now a user of our system. You can now login to your account and start using our services.',  $password);
 
-        
-        echo "<script>window.location.href = '../pending.php?success=role_assigned';</script>";
-    }
+    addProfile($conn, $id, $full_name, $role, $email, $phone, 'admin', $retailer, $retailer, $commission_type, $commission_value, 'Active', $created_at, $password);
+    addCustomer($conn, $id, $full_name, $role, $email, $phone, 'admin', $retailer, $retailer, $commission_type, $commission_value, 'Active', $created_at, $payment_methods_json);
 
-    // $query = "UPDATE registration SET role = '$role', retailer_id = '$retailer' WHERE id = '$id'";
+    // $query = "UPDATE registration SET status = 'Approved' WHERE id = '$id'";
     // mysqli_query($conn, $query);
+
+    echo "<script>window.location.href = '../pending.php?success=role_assigned';</script>";
+    // }
 }
 
 
@@ -77,22 +79,22 @@ if (isset($_POST['declined'])) {
     echo "<script>window.location.href = '../pending.php?success=declined';</script>";
 }
 
-function addCustomer($conn, $id, $full_name, $role, $email, $phone, $parent, $retailer, $retailer_id, $commission_type, $commission_value, $status, $created_at)
+function addCustomer($conn, $id, $full_name, $role, $email, $phone, $parent, $retailer, $retailer_id, $commission_type, $commission_value, $status, $created_at, $payment_methods_json)
 {
-    $cust_id = strtoupper($role).'0'.$id;
+    $cust_id = strtoupper($role) . '0' . $id;
 
-    $query = "INSERT INTO customer (cust_id, cust_name, cust_role, cust_email, cust_phone, parent, parent_name, parent_id, commission_type, commission_value, status, created_at) 
-                            VALUES ('$cust_id', '$full_name', '$role', '$email', '$phone', '$parent', '$retailer', '$retailer_id', '$commission_type', '$commission_value', '$status', '$created_at')";
+    $query = "INSERT INTO customer (cust_id, cust_name, cust_email, cust_phone, commission_type, commission_value, status, created_at, banks) 
+                            VALUES ('$cust_id', '$full_name', '$email', '$phone', '$commission_type', '$commission_value', '$status', '$created_at', '$payment_methods_json')";
     mysqli_query($conn, $query);
 }
 
 function addProfile($conn, $id, $full_name, $role, $email, $phone, $parent, $retailer, $retailer_id, $commission_type, $commission_value, $status, $created_at, $password)
 {
-    $cust_id = strtoupper($role).'0'.$id;
+    $cust_id = strtoupper($role) . '0' . $id;
     // $password = generatePassword();
 
-    $query = "INSERT INTO profile (cust_id, cust_name, cust_role, cust_email, cust_phone, status, password,  created_at) 
-                            VALUES ('$cust_id', '$full_name', '$role', '$email', '$phone', '$status', '$password', '$created_at')";
+    $query = "INSERT INTO profile (cust_id, cust_name, cust_email, cust_phone, status, password,  created_at) 
+                            VALUES ('$cust_id', '$full_name', '$email', '$phone', '$status', '$password', '$created_at')";
     mysqli_query($conn, $query);
 }
 
@@ -132,13 +134,13 @@ function mailtoCustomer($message, $password)
     // set port to connect smtp
     $mail->Port = "587";
     // set gmail username
-    $mail->Username = "connect@techno3gamma.in";
+    $mail->Username = "info@play2gate.co.in";
     // set gmail password
-    $mail->Password = "Brainkraft1@";
+    $mail->Password = "4yK@ftyfJ=zf";
     // set email subect
     $mail->Subject = "Account Approval";
     // set sender email
-    $mail->setFrom("connect@techno3gamma.in");
+    $mail->setFrom("info@play2gate.co.in");
     // enable html
     $mail->isHTML(true);
     //Get the uploaded file information

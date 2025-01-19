@@ -34,16 +34,32 @@ include "./process/auth.php";
                     <button class="mobile-toggle">
                         <i class="fas fa-bars"></i>
                     </button>
-                    <div class="header-text">All Withdrawal List</div>
+                    <div class="header-text">
+                        <a href="#">Home Page</a> / 
+                        <a href="#">Bank Transfer</a> / 
+                        <a href="#">Withdrawal Request</a>
+                    </div>
                 </div>
 
 
                 <div class="header-right">
 
+                    <?php
+                    include '../process/conn.php';
+                    include '../auth.php';
+                    $user_id = $_SESSION['user_id'];
+                    // echo $user_id;
+
+                    $sql = "SELECT cust_name FROM customer WHERE cust_id = '$user_id'";
+                    $result = mysqli_query($conn, $sql);
+                    $row = mysqli_fetch_assoc($result);
+                    $cust_name = $row['cust_name'];
+
+                    ?>
+
                     <div class="user-menu d-flex align-items-center ml-3 position-relative">
-                        
                         <i class="fas fa-user text-dark ml-3"></i>
-                        <span class="user-name text-dark ml-2">John Doe</span>
+                        <span class="user-name text-dark ml-2"><?php echo $cust_name; ?></span>
                     </div>
                 </div>
             </header>

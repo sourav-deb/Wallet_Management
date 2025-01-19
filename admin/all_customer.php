@@ -130,8 +130,8 @@ include "./process/auth.php";
                                     <th>Details</th>
                                     <th style="display: none;">Gmail ID</th>
                                     <th style="display: none;">Mobile No</th>
-                                    <th>Parent</th>
-                                    <th>Role</th>
+                                    <th style="display: none;">Parent</th>
+                                    <th style="display: none;">Role</th>
                                     <th>Comm Type</th>
                                     <th>Comm Value</th>
                                     <th>Wallet Balance</th>
@@ -158,8 +158,8 @@ include "./process/auth.php";
                                             </td>
                                             <td style="display: none;"><?php echo $row['cust_email']; ?></td>
                                             <td style="display: none;"><?php echo $row['cust_phone']; ?></td>
-                                            <td><?php echo $row['parent']; ?></td>
-                                            <td><?php echo $row['cust_role']; ?></td>
+                                            <td style="display: none;"></td>
+                                            <td style="display: none;"></td>
                                             <td><?php echo $row['commission_type']; ?></td>
                                             <td><?php echo $row['commission_value']; ?></td>
                                             <td>INR <?php echo $row['balance']; ?></td>
@@ -264,7 +264,7 @@ include "./process/auth.php";
                             <label>Phone</label>
                             <input type="text" id="edit_phone" name="edit_phone" required>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>Parent</label>
                             <select name="edit_parent" id="edit_parent">
                                 <option selected disabled>Select Parent</option>
@@ -279,7 +279,7 @@ include "./process/auth.php";
                                 <option value="retailer">Retailer</option>
                                 <option value="user">User</option>
                             </select>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label>Comm Type</label>
                             <select name="edit_comm_type" id="edit_comm_type">

@@ -67,7 +67,7 @@ include "./process/auth.php";
                                     <select name="retailer_id" id="retailer_id"required>
                                         <option selected disabled>Select Retailer</option>
                                         <?php
-                                        $sql = "SELECT cust_id, cust_name FROM customer WHERE cust_role = 'retailer' ORDER BY cust_name ASC";
+                                        $sql = "SELECT cust_id, cust_name FROM customer ORDER BY cust_name ASC";
                                         $result = $conn->query($sql);
 
                                         if ($result->num_rows > 0) {

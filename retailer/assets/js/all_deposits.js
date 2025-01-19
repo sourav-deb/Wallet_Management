@@ -98,3 +98,34 @@ window.onclick = function (event) {
         modal.style.display = "none";
     }
 }
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        showAlert('Copied!', 'success');
+    }).catch(err => {
+        showAlert('Failed to copy text', 'error');
+        console.error('Failed to copy text: ', err);
+    });
+}
+
+function showAlert(message, type = 'success') {
+    // Create alert element
+    const alert = document.createElement('div');
+    alert.className = `custom-alert ${type}`;
+    alert.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        <span>${message}</span>
+    `;
+    
+    // Add to document
+    document.body.appendChild(alert);
+    
+    // Trigger animation
+    setTimeout(() => alert.classList.add('show'), 10);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        alert.classList.remove('show');
+        setTimeout(() => alert.remove(), 300);
+    }, 3000);
+}

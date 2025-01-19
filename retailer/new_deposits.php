@@ -34,19 +34,32 @@ $userid = $_SESSION['user_id'];
                     <button class="mobile-toggle">
                         <i class="fas fa-bars"></i>
                     </button>
-                    <div class="header-text">New Deposits Received</div>
+                    <div class="header-text">
+                        <a href="#">Home Page</a> /
+                        <a href="#">Bank Transfer</a> /
+                        <a href="#">Pending Deposit</a>
+                    </div>
                 </div>
 
 
                 <div class="header-right">
 
+                    <?php
+                    include '../process/conn.php';
+                    include '../auth.php';
+                    $user_id = $_SESSION['user_id'];
+                    // echo $user_id;
+
+                    $sql = "SELECT cust_name FROM customer WHERE cust_id = '$user_id'";
+                    $result = mysqli_query($conn, $sql);
+                    $row = mysqli_fetch_assoc($result);
+                    $cust_name = $row['cust_name'];
+
+                    ?>
+
                     <div class="user-menu d-flex align-items-center ml-3 position-relative">
-                        <i class="fas fa-bell text-dark" id="notification-bell"></i>
-                        <div class="notification-box bg-white shadow-sm p-3 position-absolute" id="notification-box">
-                            <p>No new notifications</p>
-                        </div>
                         <i class="fas fa-user text-dark ml-3"></i>
-                        <span class="user-name text-dark ml-2">John Doe</span>
+                        <span class="user-name text-dark ml-2"><?php echo $cust_name; ?></span>
                     </div>
                 </div>
             </header>
