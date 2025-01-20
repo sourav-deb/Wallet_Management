@@ -56,8 +56,9 @@ include "./process/auth.php";
             <div class="main-content">
 
                 <div class="filter-section">
-                    <div class="form-grid">
-                        <form method="post" action="" class="form-grid">
+                    <div class="group-header">Admin Bank Details</div>
+                    <form method="post" action="./process/add_bank_details.php" class="form-grid">
+                        <div class="form-grid">
                             <div class="form-group">
                                 <label for="payment-method">Select Payment Method</label>
                                 <select id="payment-method" name="payment_method" required>
@@ -71,25 +72,25 @@ include "./process/auth.php";
                             <div id="bank-details" class="payment-details">
                                 <div class="form-group">
                                     <label for="bank-name">Bank Name:</label>
-                                    <input type="text" id="bank-name" name="bank_name">
+                                    <input type="text" id="bank-name" name="bank_name" placeholder="Enter Bank Name">
                                 </div>
                                 <br>
                                 <!-- Account Number -->
                                 <div class="form-group">
                                     <label for="account-number">Account Number:</label>
-                                    <input type="text" id="account-number" name="account_number">
+                                    <input type="text" id="account-number" name="account_number" placeholder="Enter Account Number">
                                 </div>
                                 <br>
                                 <!-- IFSC Code -->
                                 <div class="form-group">
                                     <label for="ifsc-code">IFSC Code:</label>
-                                    <input type="text" id="ifsc-code" name="ifsc_code">
+                                    <input type="text" id="ifsc-code" name="ifsc_code" placeholder="Enter IFSC Code">
                                 </div>
                                 <br>
                                 <!-- Branch Name -->
                                 <div class="form-group">
                                     <label for="branch-name">Branch Name:</label>
-                                    <input type="text" id="branch-name" name="branch_name">
+                                    <input type="text" id="branch-name" name="branch_name" placeholder="Enter Branch Name">
                                 </div>
                                 <br>
                             </div>
@@ -98,7 +99,7 @@ include "./process/auth.php";
                             <div id="upi-details" class="payment-details" style="display:none;">
                                 <div class="form-group">
                                     <label for="upi-id">UPI ID:</label>
-                                    <input type="text" id="upi-id" name="upi_id">
+                                    <input type="text" id="upi-id" name="upi_id" placeholder="Enter UPI ID">
                                 </div>
                             </div>
 
@@ -110,28 +111,129 @@ include "./process/auth.php";
                                 </div>
                             </div>
                             <br>
-                            <!-- Submit Button -->
-                            <div class="form-actions" style="text-align:right;">
-                                <!-- <button type="submit" class="apply-btn">
-                                    <i class="fas fa-search"></i> Submit
-                                </button> -->
+                        </div>
+
+                        <!-- Apply Button -->
+                        <div class="form-actions">
+                            <button type="submit" class="apply-btn" name="add_bank">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+
+                <div class="filter-section">
+                    <div class="group-header">Payment Methods for Retailers</div>
+                    <form method="post" action="./process/add_bank_details.php" class="form-grid">
+                        <div class="form-grid">
+
+                            <!-- UPI Details -->
+                            <div class="form-group">
+                                <label for="methods">New Methods:</label>
+                                <input type="text" id="payment_methods" name="payment_methods">
                             </div>
+                            <br>
+                        </div>
 
-                    </div>
+                        <!-- Apply Button -->
+                        <div class="form-actions">
+                            <button type="submit" class="apply-btn" name="add_methods">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
 
-                    <!-- Apply Button -->
-                    <div class="form-actions">
-                        <button type="submit" class="apply-btn">
-                            <!-- <i class="fas fa-search"></i>  -->
-                            Submit
-                        </button>
-                        </form>
+
+                <!-- Admin Bank section -->
+                <div class="results-section">
+                    <div class="table-container">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th width="50"></th>
+                                    <th>Admin Bank</th>
+                                    <th>Details</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- display data here -->
+                                <?php
+                                $pay_req = mysqli_query($conn, "SELECT * FROM admin_bank ORDER BY id DESC");
+                                while ($row = mysqli_fetch_assoc($pay_req)) {
+
+                                    // echo $row['name'];
+                                    ?>
+                                        <tr>
+                                           <td></td>
+                                            <td><?php echo $row['methods']; ?></td>
+                                            <td>
+                                                <div class='details-box'>
+                                                    <p><b>Bank_Name: </b><?php echo $row['bank_name']; ?></p>
+                                                    <p><b>Account_Number: </b><?php echo $row['account_no']; ?></p>
+                                                    <p><b>IFSC_Code: </b><?php echo $row['ifsc_code']; ?></p>
+                                                    <p><b>Branch_Name: </b><?php echo $row['branch_name']; ?></p>
+                                                    <p><b>UPI_ID: </b><?php echo $row['upi_id']; ?></p>
+                                                    <p><b>QR_Code: </b><a href="<?php echo $row['qr_code']; ?>" target="_blank">View QR Code</a></p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                }
+                                ?>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
 
+                <!-- Payment Methods section -->
+                <div class="results-section">
+                    <div class="table-container">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th width="50"></th>
+                                    <th>Sl No</th>
+                                    <th>Payment Methods</th>
+
+                                    <th>Actions</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- display data here -->
+                                <?php
+                                $pay_req = mysqli_query($conn, "SELECT * FROM payment_methods ORDER BY id");
+                                while ($row = mysqli_fetch_assoc($pay_req)) {
+
+                                    // echo $row['name'];
+                                    ?>
+                                        <tr>
+                                           <td></td>
+                                            <td><?php echo $row['id']; ?></td>
+                                            <td><?php echo $row['methods']; ?></td>
+                                            <td>
+                                                
+                                            </td>
+                                        </tr>
+                                        <?php
+                                }
+                                ?>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
             </div>
         </div>
+    </div>
+    </div>
+    </div>
     </div>
 
 

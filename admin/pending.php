@@ -213,34 +213,19 @@ include "./process/auth.php";
                     <div class="payment-methods">
                         <label>Payment Methods</label>
                         <div class="checkbox-wrapper">
+
+                        <?php
+                        $pay_req = mysqli_query($conn, "SELECT * FROM payment_methods ORDER BY id");
+                        while ($row = mysqli_fetch_assoc($pay_req)) {
+                        ?>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="gpay" name="payment_methods[]" value="gpay">
-                                <label for="gpay">GPay</label>
+                                <input type="checkbox" id="gpay" name="payment_methods[]" value="<?php echo $row['methods']; ?>">
+                                <label for="<?php echo $row['methods']; ?>"><?php echo $row['methods']; ?></label>
                             </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="phonepe" name="payment_methods[]" value="phonepe">
-                                <label for="phonepe">PhonePe</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="crypto" name="payment_methods[]" value="crypto">
-                                <label for="crypto">Crypto</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="crypto" name="payment_methods[]" value="crypto">
-                                <label for="crypto">Crypto</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="crypto" name="payment_methods[]" value="crypto">
-                                <label for="crypto">Crypto</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="crypto" name="payment_methods[]" value="crypto">
-                                <label for="crypto">Crypto</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="crypto" name="payment_methods[]" value="crypto">
-                                <label for="crypto">Crypto</label>
-                            </div>
+                            <?php
+                            }
+                            ?>
+                            
                         </div>
                     </div>
 

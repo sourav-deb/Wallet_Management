@@ -145,18 +145,21 @@ include "./process/auth.php";
                                 <div class="form-group bank-options">
                                     <label for="banks">Available Banks</label>
                                     <div class="bank-checkbox-wrapper">
+
+                                    <?php
+
+                                    $pay_req = mysqli_query($conn, "SELECT * FROM payment_methods ORDER BY id");
+                                    while ($row = mysqli_fetch_assoc($pay_req)) {
+
+                                        
+                                        ?>
                                         <div class="bank-checkbox-item">
-                                            <input type="checkbox" name="banks[]" id="hdfc" value="HDFC">
-                                            <label for="hdfc">HDFC</label>
+                                            <input type="checkbox" name="banks[]" value="<?php echo $row['methods']; ?>">
+                                            <label for="hdfc"><?php echo $row['methods']; ?></label>
                                         </div>
-                                        <div class="bank-checkbox-item">
-                                            <input type="checkbox" name="banks[]" id="icici" value="ICICI">
-                                            <label for="icici">ICICI</label>
-                                        </div>
-                                        <div class="bank-checkbox-item">
-                                            <input type="checkbox" name="banks[]" id="sbi" value="SBI">
-                                            <label for="sbi">SBI</label>
-                                        </div>
+                                        <?php
+                                    }
+                                    ?>
                                     </div>
                                 </div>
                             </div>
